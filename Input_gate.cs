@@ -8,18 +8,13 @@ using System.Windows.Forms;
 
 namespace Symulator_ukladow_logicznych
 {
-    public class Input_gate
+    public class Input_gate : Gate
     {
-        public Label label_gate = new Label();
-        Panel board, container = new Panel();
-        ContextMenuStrip menu_strip;
-
         public Connection_point point;
-        Gate_dragging draggable;
 
         public bool value = false;
 
-        public Input_gate(Panel p)
+        public Input_gate(Panel p) : base("0", p)
         {
             board = p;
 
@@ -30,25 +25,22 @@ namespace Symulator_ukladow_logicznych
             container.Controls.Add(label_gate);
 
             // label styles
-            label_gate.Text = "0";
             label_gate.Height = 30;
             label_gate.Width = 30;
             label_gate.BackColor = Color.Pink;
-            label_gate.TextAlign = ContentAlignment.MiddleCenter;
-            label_gate.BorderStyle = BorderStyle.FixedSingle;
             label_gate.Left = 0;
-            label_gate.Top = 0;
 
             // Container styles
             container.Height = label_gate.Height;
             container.Width = label_gate.Width + 5;
-            container.Tag = "gate";
 
-            draggable = new Gate_dragging(label_gate, container, board);
+            //draggable = new Gate_dragging(label_gate, container, board);
 
             label_gate.MouseMove += new MouseEventHandler(update_lines);
             label_gate.MouseUp += new MouseEventHandler(update_lines);
             label_gate.DoubleClick += new EventHandler(change_state);
+
+            menu_strip.Items[0].Click += new EventHandler((sender, e) => { remove(); });
         }
 
         void update_lines(object sender, MouseEventArgs e)

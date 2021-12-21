@@ -54,6 +54,7 @@
     <Compile Include="Form1.Designer.cs">
       <DependentUpon>Form1.cs</DependentUpon>
     </Compile>
+    <Compile Include="Gate.cs" />
     <Compile Include="Gate_dragging.cs" />
     <Compile Include="Input_gate.cs" />
     <Compile Include="Line_connection.cs" />
