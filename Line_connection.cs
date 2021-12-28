@@ -36,6 +36,8 @@ namespace Symulator_ukladow_logicznych
 
             initialize_array();
             create_connection();
+
+            update_value(p1.value);
         }
 
         public void create_connection()
@@ -153,6 +155,7 @@ namespace Symulator_ukladow_logicznych
             foreach (Label l in connection_line) board.Controls.Remove(l);
             p1.connection.Remove(this);
             p2.connection.Remove(this);
+            p2.update_value(false);
         }
 
         public void display()

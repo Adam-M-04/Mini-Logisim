@@ -30,28 +30,26 @@ namespace Symulator_ukladow_logicznych
         void control_MouseDown(object sender, MouseEventArgs e)
         {
             label.Cursor = Cursors.Hand;
+            panel.BringToFront();
 
             mouseOffset = new Size(e.Location);
-            // turning on dragging
-            is_dragged = true;
 
             starting_location = panel.Location;
+
+            // turning on dragging
+            is_dragged = true;
         }
         void control_MouseUp(object sender, MouseEventArgs e)
         {
             label.Cursor = Cursors.Default;
+            panel.SendToBack();
 
             // turning off dragging
             is_dragged = false;
 
-            foreach (Control ctr in board.Controls)
+            if(Gates_manager.is_overlapping(panel))
             {
-                if ((string)ctr.Tag != "gate") return;
-                if (panel.Bounds.IntersectsWith(ctr.Bounds) && this.panel != ctr)
-                {
-                    panel.Location = starting_location;
-                    return;
-                }
+                panel.Location = starting_location;
             }
         }
         void control_MouseMove(object sender, MouseEventArgs e)
@@ -62,8 +60,7 @@ namespace Symulator_ukladow_logicznych
                 // calculations of control's new position
                 Point newLocationOffset = e.Location - mouseOffset;
 
-                if (panel.Left + newLocationOffset.X < 0 || panel.Right + newLocationOffset.X > board.Width
-                    || panel.Top + newLocationOffset.Y < 0 || panel.Bottom + newLocationOffset.Y > board.Height) return;
+                if (panel.Left + newLocationOffset.X < 0 || panel.Top + newLocationOffset.Y < 0 ) return;
 
                 panel.Left += newLocationOffset.X;
                 panel.Top += newLocationOffset.Y;

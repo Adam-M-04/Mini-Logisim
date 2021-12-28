@@ -12,18 +12,15 @@ namespace Symulator_ukladow_logicznych
     {
         public Connection_point point;
 
-        public Output_gate(Panel p): base("0", p)
+        public Output_gate(Panel p, Point location): base("0", p, location)
         {
             point = new Connection_point(0, 10, point_type.Input, this);
             container.Controls.Add(point.point);
 
-            board.Controls.Add(container);
-            container.Controls.Add(label_gate);
-
             // label styles
             label_gate.Height = 30;
             label_gate.Width = 30;
-            label_gate.BackColor = Color.Pink;
+            label_gate.BackColor = Color.LightCoral;
             label_gate.Left = 5;
 
             // Container styles
@@ -34,6 +31,15 @@ namespace Symulator_ukladow_logicznych
             label_gate.MouseUp += new MouseEventHandler(update_lines);
 
             menu_strip.Items[0].Click += new EventHandler((sender, e) => { remove(); });
+
+            board.Controls.Add(container);
+            container.Controls.Add(label_gate);
+
+            if (Gates_manager.is_overlapping(container))
+            {
+                remove();
+                return;
+            }
         }
 
         void update_lines(object sender, MouseEventArgs e)
@@ -49,6 +55,7 @@ namespace Symulator_ukladow_logicznych
 
         public void remove()
         {
+            Gates_manager.gates.Remove(this);
             point.remove_connections();
             board.Controls.Remove(container);
         }

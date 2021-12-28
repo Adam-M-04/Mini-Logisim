@@ -11,11 +11,11 @@ namespace Symulator_ukladow_logicznych
     public class Gate
     {
         public Label label_gate = new Label();
-        protected Panel board, container = new Panel();
+        public Panel board, container = new Panel();
         protected ContextMenuStrip menu_strip;
-        protected Gate_dragging draggable;
+        public Gate_dragging draggable;
 
-        public Gate(string text, Panel p)
+        public Gate(string text, Panel p, Point location)
         {
             board = p;
 
@@ -26,6 +26,7 @@ namespace Symulator_ukladow_logicznych
             label_gate.Top = 0;
 
             // Container styles
+            container.Location = location;
             container.Tag = "gate";
 
             draggable = new Gate_dragging(label_gate, container, board);

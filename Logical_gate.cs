@@ -16,7 +16,7 @@ namespace Symulator_ukladow_logicznych
         public Connection_point output_point;
         Func<bool[], bool> calculate_output;
 
-        public Logical_gate(string text, Panel p, int inputs_number, Func<bool[], bool> calculate_output): base(text, p)
+        public Logical_gate(string text, Panel p, int inputs_number, Func<bool[], bool> calculate_output, Point location): base(text, p, location)
         {
             this.calculate_output = calculate_output;
             this.inputs_number = inputs_number;
@@ -34,15 +34,10 @@ namespace Symulator_ukladow_logicznych
             output_point = new Connection_point(80, inputs_number * 10, point_type.Output, this);
             container.Controls.Add(output_point.point);
 
-
-            board.Controls.Add(container);
-            container.Controls.Add(label_gate);
-
-
             // label styles
             label_gate.Height = inputs_number * 20 + 10;
             label_gate.Width = 80;
-            label_gate.BackColor = Color.Orange;
+            label_gate.BackColor = Color.Wheat;
             label_gate.Left = 5;
 
             // Container styles
@@ -53,6 +48,15 @@ namespace Symulator_ukladow_logicznych
             label_gate.MouseUp += new MouseEventHandler(update_lines);
 
             menu_strip.Items[0].Click += new EventHandler((sender, e) => { remove(); });
+
+            board.Controls.Add(container);
+            container.Controls.Add(label_gate);
+
+            if (Gates_manager.is_overlapping(container))
+            {
+                remove();
+                return;
+            }
         }
 
         void update_lines(object sender, MouseEventArgs e)
@@ -75,8 +79,9 @@ namespace Symulator_ukladow_logicznych
 
         public void remove()
         {
-            Form1.gates.Remove(this);
+            Gates_manager.gates.Remove(this);
             foreach (Connection_point cp in input_points) cp.remove_connections();
+            output_point.update_value(false);
             output_point.remove_connections();
             board.Controls.Remove(container);
         }
