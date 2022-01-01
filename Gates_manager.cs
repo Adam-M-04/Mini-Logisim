@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -19,6 +20,11 @@ namespace Symulator_ukladow_logicznych
             available_gates.Add(new Gate_Template(name, inputs_number, calc_function));
         }
 
+        public static void Add_gate_template(string name, List<Connection_point> start_points, Connection_point output_point, Color color)
+        {
+            available_gates.Add(new Gate_Template(name, start_points, output_point, color));
+        }
+
         public static void Add_gate_template(Template_type type)
         {
             available_gates.Add(new Gate_Template(type));
@@ -32,6 +38,12 @@ namespace Symulator_ukladow_logicznych
                 if (to_check.Bounds.IntersectsWith(ctr.Bounds) && to_check != ctr) return true;
             }
             return false;
+        }
+
+        public static void Clear_board()
+        {
+            board.Controls.Clear();
+            gates.Clear();
         }
 
     }

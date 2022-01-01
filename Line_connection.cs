@@ -174,5 +174,10 @@ namespace Symulator_ukladow_logicznych
         {
             return p2.check_for_connection(lg);
         }
+
+        public void search_for_start_points(List<Connection_point> points)
+        {
+            p1.search_for_start_points(points);
+        }
     }
 }

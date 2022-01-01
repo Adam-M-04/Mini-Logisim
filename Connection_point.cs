@@ -140,6 +140,22 @@ namespace Symulator_ukladow_logicznych
                 return false;
             }
         }
+
+        public void search_for_start_points(List<Connection_point> points)
+        {
+            if (type == point_type.Input)
+            {
+                if (connection.Count > 0) connection[0].search_for_start_points(points);
+            }
+            else
+            {
+                if (parent.GetType().Name == "Input_gate")
+                {
+                    if (!points.Contains(this)) points.Add(this);
+                }
+                else ((Logical_gate)parent).search_for_start_points(points);
+            }
+        }
     }
 
     public enum point_type

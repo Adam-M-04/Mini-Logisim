@@ -14,10 +14,8 @@ namespace Symulator_ukladow_logicznych
 
         public bool value = false;
 
-        public Input_gate(Panel p, Point location) : base("0", p, location)
+        public Input_gate(Point location) : base("0", location)
         {
-            board = p;
-
             point = new Connection_point(25, 10, point_type.Output, this);
             container.Controls.Add(point.point);
 

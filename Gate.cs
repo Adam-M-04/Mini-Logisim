@@ -15,15 +15,16 @@ namespace Symulator_ukladow_logicznych
         protected ContextMenuStrip menu_strip;
         public Gate_dragging draggable;
 
-        public Gate(string text, Panel p, Point location)
+        public Gate(string text, Point location)
         {
-            board = p;
+            board = Gates_manager.board;
 
             // label styles
             label_gate.Text = text;
             label_gate.TextAlign = ContentAlignment.MiddleCenter;
             label_gate.BorderStyle = BorderStyle.FixedSingle;
             label_gate.Top = 0;
+            label_gate.Font = new Font("Arial", 10, FontStyle.Regular);
 
             // Container styles
             container.Location = location;

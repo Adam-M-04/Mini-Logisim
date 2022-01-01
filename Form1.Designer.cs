@@ -52,9 +52,9 @@ namespace Symulator_ukladow_logicznych
             this.gates_selector_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.gates_selector_panel.AutoScroll = true;
             this.gates_selector_panel.BackColor = System.Drawing.Color.Transparent;
-            this.gates_selector_panel.Location = new System.Drawing.Point(0, 508);
+            this.gates_selector_panel.Location = new System.Drawing.Point(0, 526);
             this.gates_selector_panel.Name = "gates_selector_panel";
-            this.gates_selector_panel.Size = new System.Drawing.Size(957, 86);
+            this.gates_selector_panel.Size = new System.Drawing.Size(969, 86);
             this.gates_selector_panel.TabIndex = 1;
             // 
             // menuStrip1
@@ -64,7 +64,7 @@ namespace Symulator_ukladow_logicznych
             this.projectToolStripMenuItem});
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(997, 28);
+            this.menuStrip1.Size = new System.Drawing.Size(1246, 38);
             this.menuStrip1.TabIndex = 2;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -81,28 +81,28 @@ namespace Symulator_ukladow_logicznych
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
             this.saveAsToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.saveAsToolStripMenuItem.Text = "Save";
             // 
             // openToolStripMenuItem
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 606);
+            this.ClientSize = new System.Drawing.Size(997, 624);
             this.Controls.Add(this.gates_selector_panel);
             this.Controls.Add(this.board);
             this.Controls.Add(this.menuStrip1);
             this.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.MainMenuStrip = this.menuStrip1;
             this.Name = "Form1";
-            this.Text = "Form1";
+            this.Text = "Symulator układów logicznych";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.resize_handler);
             this.menuStrip1.ResumeLayout(false);

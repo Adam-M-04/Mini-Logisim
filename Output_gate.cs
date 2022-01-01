@@ -8,11 +8,11 @@ using System.Windows.Forms;
 
 namespace Symulator_ukladow_logicznych
 {
-    class Output_gate : Gate
+    public class Output_gate : Gate
     {
         public Connection_point point;
 
-        public Output_gate(Panel p, Point location): base("0", p, location)
+        public Output_gate(Point location): base("0", location)
         {
             point = new Connection_point(0, 10, point_type.Input, this);
             container.Controls.Add(point.point);
@@ -30,7 +30,15 @@ namespace Symulator_ukladow_logicznych
             label_gate.MouseMove += new MouseEventHandler(update_lines);
             label_gate.MouseUp += new MouseEventHandler(update_lines);
 
+
+            menu_strip.Items.Add("Create gate");
             menu_strip.Items[0].Click += new EventHandler((sender, e) => { remove(); });
+            menu_strip.Items[1].Click += new EventHandler((sender, e) => 
+            {
+                Form1.gate_creator.caller = this;
+                Form1.gate_creator.Random_color();
+                Form1.gate_creator.ShowDialog();
+            });
 
             board.Controls.Add(container);
             container.Controls.Add(label_gate);
@@ -51,6 +59,19 @@ namespace Symulator_ukladow_logicznych
         {
             label_gate.Text = val ? "1" : "0";
             label_gate.BackColor = val ? Color.Green : Color.LightCoral;
+        }
+
+        public void create_new_gate(string name, Color color)
+        {
+            List<Connection_point> start_points = new List<Connection_point>();
+            point.search_for_start_points(start_points);
+            if(start_points.Count == 0)
+            {
+                MessageBox.Show("Add at least one input gate to create a new gate");
+                return;
+            }
+            Gates_manager.Add_gate_template(name, start_points, point, color);
+            Gates_manager.Clear_board();
         }
 
         public void remove()
