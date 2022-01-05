@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public class Gate_dragging
     {
@@ -29,28 +29,35 @@ namespace Symulator_ukladow_logicznych
 
         void control_MouseDown(object sender, MouseEventArgs e)
         {
-            label.Cursor = Cursors.Hand;
-            panel.BringToFront();
+            if(e.Button == MouseButtons.Left)
+            {
+                label.Cursor = Cursors.Hand;
+                panel.BringToFront();
 
-            mouseOffset = new Size(e.Location);
+                mouseOffset = new Size(e.Location);
 
-            starting_location = panel.Location;
+                starting_location = panel.Location;
 
-            // turning on dragging
-            is_dragged = true;
+                // turning on dragging
+                is_dragged = true;
+            }
         }
         void control_MouseUp(object sender, MouseEventArgs e)
         {
-            label.Cursor = Cursors.Default;
-            panel.SendToBack();
-
-            // turning off dragging
-            is_dragged = false;
-
-            if(Gates_manager.is_overlapping(panel))
+            if (true)
             {
-                panel.Location = starting_location;
+                label.Cursor = Cursors.Default;
+                panel.SendToBack();
+
+                // turning off dragging
+                is_dragged = false;
+
+                if(Gates_manager.Is_overlapping(panel))
+                {
+                    panel.Location = starting_location;
+                }
             }
+                
         }
         void control_MouseMove(object sender, MouseEventArgs e)
         {

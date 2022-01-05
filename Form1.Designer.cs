@@ -1,5 +1,5 @@
 ﻿
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     partial class Form1
     {
@@ -31,11 +31,12 @@ namespace Symulator_ukladow_logicznych
         {
             this.board = new System.Windows.Forms.Panel();
             this.gates_selector_panel = new System.Windows.Forms.Panel();
-            this.menuStrip1 = new System.Windows.Forms.MenuStrip();
+            this.menuStrip = new System.Windows.Forms.MenuStrip();
             this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveAsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.menuStrip1.SuspendLayout();
+            this.saveGateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // board
@@ -57,16 +58,17 @@ namespace Symulator_ukladow_logicznych
             this.gates_selector_panel.Size = new System.Drawing.Size(969, 86);
             this.gates_selector_panel.TabIndex = 1;
             // 
-            // menuStrip1
+            // menuStrip
             // 
-            this.menuStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
-            this.menuStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.projectToolStripMenuItem});
-            this.menuStrip1.Location = new System.Drawing.Point(0, 0);
-            this.menuStrip1.Name = "menuStrip1";
-            this.menuStrip1.Size = new System.Drawing.Size(1246, 38);
-            this.menuStrip1.TabIndex = 2;
-            this.menuStrip1.Text = "menuStrip1";
+            this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
+            this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.projectToolStripMenuItem,
+            this.saveGateToolStripMenuItem});
+            this.menuStrip.Location = new System.Drawing.Point(0, 0);
+            this.menuStrip.Name = "menuStrip";
+            this.menuStrip.Size = new System.Drawing.Size(997, 28);
+            this.menuStrip.TabIndex = 2;
+            this.menuStrip.Text = "menuStrip1";
             // 
             // projectToolStripMenuItem
             // 
@@ -91,6 +93,13 @@ namespace Symulator_ukladow_logicznych
             this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.openToolStripMenuItem.Text = "Open";
             // 
+            // saveGateToolStripMenuItem
+            // 
+            this.saveGateToolStripMenuItem.Name = "saveGateToolStripMenuItem";
+            this.saveGateToolStripMenuItem.Size = new System.Drawing.Size(88, 24);
+            this.saveGateToolStripMenuItem.Text = "Save gate";
+            this.saveGateToolStripMenuItem.Visible = false;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -98,15 +107,15 @@ namespace Symulator_ukladow_logicznych
             this.ClientSize = new System.Drawing.Size(997, 624);
             this.Controls.Add(this.gates_selector_panel);
             this.Controls.Add(this.board);
-            this.Controls.Add(this.menuStrip1);
+            this.Controls.Add(this.menuStrip);
             this.Font = new System.Drawing.Font("Century Gothic", 7.8F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.MainMenuStrip = this.menuStrip1;
+            this.MainMenuStrip = this.menuStrip;
             this.Name = "Form1";
-            this.Text = "Symulator układów logicznych";
+            this.Text = "Logic gate simulator";
             this.Load += new System.EventHandler(this.Form1_Load);
             this.Resize += new System.EventHandler(this.resize_handler);
-            this.menuStrip1.ResumeLayout(false);
-            this.menuStrip1.PerformLayout();
+            this.menuStrip.ResumeLayout(false);
+            this.menuStrip.PerformLayout();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -116,10 +125,11 @@ namespace Symulator_ukladow_logicznych
 
         private System.Windows.Forms.Panel board;
         private System.Windows.Forms.Panel gates_selector_panel;
-        private System.Windows.Forms.MenuStrip menuStrip1;
+        private System.Windows.Forms.MenuStrip menuStrip;
         private System.Windows.Forms.ToolStripMenuItem projectToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem saveGateToolStripMenuItem;
     }
 }
 

@@ -8,17 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public partial class Form1 : Form
     {
         public static Form1 form;
         public static Create_gate gate_creator = new Create_gate();
-        
+        public static MenuStrip menu;
+
         public Form1()
         {
             InitializeComponent();
             form = this;
+            menu = menuStrip;
+            menu.Items[1].Click += new EventHandler((sender, e) => { gate_creator.Load_gate_settings(); });
 
             board.Left = 10;
             board.Top = 30;

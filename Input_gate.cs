@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public class Input_gate : Gate
     {
@@ -40,7 +40,7 @@ namespace Symulator_ukladow_logicznych
             board.Controls.Add(container);
             container.Controls.Add(label_gate);
 
-            if (Gates_manager.is_overlapping(container))
+            if (Gates_manager.Is_overlapping(container))
             {
                 remove();
                 return;
@@ -67,6 +67,11 @@ namespace Symulator_ukladow_logicznych
             point.update_value(false);
             point.remove_connections();
             board.Controls.Remove(container);
+        }
+
+        public void show_gate_tree()
+        {
+            Gates_manager.board.Controls.Add(container);
         }
     }
 }

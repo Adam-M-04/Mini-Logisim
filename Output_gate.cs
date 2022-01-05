@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public class Output_gate : Gate
     {
@@ -32,18 +32,13 @@ namespace Symulator_ukladow_logicznych
 
 
             menu_strip.Items.Add("Create gate");
-            menu_strip.Items[0].Click += new EventHandler((sender, e) => { remove(); });
-            menu_strip.Items[1].Click += new EventHandler((sender, e) => 
-            {
-                Form1.gate_creator.caller = this;
-                Form1.gate_creator.Random_color();
-                Form1.gate_creator.ShowDialog();
-            });
+            menu_strip.Items[0].Click += new EventHandler((sender, e) => {remove();});
+            menu_strip.Items[1].Click += new EventHandler((sender, e) => {Form1.gate_creator.Open(this);});
 
             board.Controls.Add(container);
             container.Controls.Add(label_gate);
 
-            if (Gates_manager.is_overlapping(container))
+            if (Gates_manager.Is_overlapping(container))
             {
                 remove();
                 return;
@@ -79,6 +74,12 @@ namespace Symulator_ukladow_logicznych
             Gates_manager.gates.Remove(this);
             point.remove_connections();
             board.Controls.Remove(container);
+        }
+
+        public void show_gate_tree()
+        {
+            Gates_manager.board.Controls.Add(container);
+            if (point.connection.Count > 0) point.connection[0].show_gate_tree();
         }
     }
 }

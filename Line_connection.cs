@@ -7,15 +7,14 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public class Line_connection
     {
         Connection_point p1, p2;
         private const int line_size = 6;
         Label start_point, end_point;
-        Panel board;
-        ContextMenuStrip menu_strip;
+        ContextMenuStrip menu_strip = new ContextMenuStrip();
 
         Label[] connection_line;
 
@@ -28,9 +27,8 @@ namespace Symulator_ukladow_logicznych
 
             start_point = p1.point;
             end_point = p2.point;
-            board = (Panel)start_point.Parent.Parent;
 
-            menu_strip = new ContextMenuStrip();
+            menu_strip.ShowImageMargin = false;
             menu_strip.Items.Add("Delete");
             menu_strip.Items[0].Click += new EventHandler((sender, e)=> { remove(); });
 
@@ -152,7 +150,7 @@ namespace Symulator_ukladow_logicznych
 
         public void remove()
         {
-            foreach (Label l in connection_line) board.Controls.Remove(l);
+            foreach (Label l in connection_line) Gates_manager.board.Controls.Remove(l);
             p1.connection.Remove(this);
             p2.connection.Remove(this);
             p2.update_value(false);
@@ -160,7 +158,7 @@ namespace Symulator_ukladow_logicznych
 
         public void display()
         {
-            foreach (Label l in connection_line) board.Controls.Add(l);
+            foreach (Label l in connection_line) Gates_manager.board.Controls.Add(l);
         }
 
         public void update_value(bool val)
@@ -178,6 +176,13 @@ namespace Symulator_ukladow_logicznych
         public void search_for_start_points(List<Connection_point> points)
         {
             p1.search_for_start_points(points);
+        }
+
+        public void show_gate_tree()
+        {
+            display();
+            if (p1.parent.GetType().Name == "Logical_gate") ((Logical_gate)p1.parent).show_gate_tree();
+            else ((Input_gate)p1.parent).show_gate_tree();
         }
     }
 }

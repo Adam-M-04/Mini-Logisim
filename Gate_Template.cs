@@ -6,19 +6,22 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public class Gate_Template
     {
-        Label template = new Label();
+        public Label template = new Label();
         Object tmp_gate_ref;
         Template_type type;
         int inputs_number, real_height, real_width = 80;
-        Color color;
+        public Color color;
+        public string name;
         Func<bool[], bool> calc_function;
         List<Connection_point> start_points;
-        Connection_point output_point;
+        public Connection_point output_point;
+        public ContextMenuStrip menu_strip = new ContextMenuStrip();
 
+        bool disabled = false;
         bool is_moving = false;
         Size mouseOffset;
         Point starting_location;
@@ -26,35 +29,69 @@ namespace Symulator_ukladow_logicznych
         public Gate_Template(string name, int inputs_number, Func<bool[], bool> calc_function)
         {
             type = Template_type.Logical_gate;
-            this.inputs_number = inputs_number;
             this.calc_function = calc_function;
-            real_height = inputs_number * 20 + 10;
-            color = Color.Wheat;
-
-            control_settings(name);
+            calculate_input_points(inputs_number);
+            set_style(name, Color.Wheat);
+            control_settings();
         }
+
         public Gate_Template(string name, List<Connection_point> start_points, Connection_point output_point, Color color)
         {
             type = Template_type.Custom_logical_gate;
-            this.start_points = start_points;
             this.output_point = output_point;
-            inputs_number = start_points.Count;
-            real_height = inputs_number * 20 + 10;
-            this.color = color;
+            set_style(name, color);
+            calculate_input_points(start_points);
 
-            control_settings(name);
+            menu_strip.ShowImageMargin = false;
+            menu_strip.Items.Add("Edit");
+            menu_strip.Items.Add("Delete");
+            menu_strip.Items[0].Click += new EventHandler((sender, e) => { edit_gate(); });
+            menu_strip.Items[1].Click += new EventHandler((sender, e) => { remove(); });
+            template.ContextMenuStrip = menu_strip;
+
+            control_settings();
         }
-
 
         public Gate_Template(Template_type type)
         {
             this.type = type;
-            control_settings(type == Template_type.Input_gate ? "Input" : "Output");
+            set_style(type == Template_type.Input_gate ? "Input" : "Output");
+            control_settings();
             real_height = 30;
             real_width = 30;
         }
 
-        void control_settings(string name)
+        public void calculate_input_points(List<Connection_point> start_points)
+        {
+            this.start_points = start_points;
+            inputs_number = start_points.Count;
+            real_height = inputs_number * 20 + 10;
+        }
+        public void calculate_input_points(int inputs_number)
+        {
+            this.inputs_number = inputs_number;
+            real_height = inputs_number * 20 + 10;
+        }
+
+        public void set_style(string name, Color color)
+        {
+            this.name = name;
+            if(color != null) this.color = color;
+            template.Text = name;
+        }
+
+        public void set_style(string name)
+        {
+            this.name = name;
+            template.Text = name;
+        }
+
+        public void set_starting_location()
+        {
+            starting_location = template.Location;
+        }
+
+        void control_settings()
         {
             template.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
             template.Top = 25;
@@ -72,21 +109,25 @@ namespace Symulator_ukladow_logicznych
             template.MouseUp += new MouseEventHandler(Mouse_up_handler);
 
             Gates_manager.gates_selector.Controls.Add(template);
+            set_starting_location();
         }
 
         public void Mouse_down_handler(object sender, MouseEventArgs e)
         {
-            template.Cursor = Cursors.Hand;
-            template.Height = real_height;
-            template.Width = real_width;
+            if (disabled) return;
+            if (e.Button == MouseButtons.Left)
+            {
+                template.Cursor = Cursors.Hand;
+                template.Height = real_height;
+                template.Width = real_width;
 
-            mouseOffset = new Size(e.Location);
-            starting_location = template.Location;
+                mouseOffset = new Size(e.Location);
 
-            template.Parent = Gates_manager.form;
+                template.Parent = Gates_manager.form;
 
-            template.BringToFront();
-            is_moving = true;
+                template.BringToFront();
+                is_moving = true;
+            }
         }
 
         public void Mouse_move_handler(object sender, MouseEventArgs e)
@@ -105,6 +146,7 @@ namespace Symulator_ukladow_logicznych
 
         public void Mouse_up_handler(object sender, MouseEventArgs e)
         {
+            if (disabled) return;
             is_moving = false;
 
             if (template.Location.X < Gates_manager.board.Left || template.Location.X > Gates_manager.board.Width + Gates_manager.board.Left ||
@@ -131,6 +173,41 @@ namespace Symulator_ukladow_logicznych
             template.Location = starting_location;
             template.Parent = Gates_manager.gates_selector;
             template.SendToBack();
+        }
+
+        void edit_gate()
+        {
+            Gates_manager.current_edited = this;
+            Gates_manager.Gates_Enabled(false, this);
+            Gates_manager.Clear_board();
+            ((Output_gate)output_point.parent).show_gate_tree();
+        }
+
+        public void Disabled(bool val)
+        {
+            disabled = val;
+            template.BackColor = val ? Color.DarkGray : Color.Wheat;
+        }
+
+        public void remove()
+        {
+            int i = 0;
+            if(this == Gates_manager.current_edited) { Gates_manager.Context_menu_options(true); Gates_manager.Gates_Enabled(true); Gates_manager.Clear_board(); }
+            while (Gates_manager.available_gates.Count > i)
+            {
+                if(Gates_manager.available_gates[i] == this)
+                {
+                    Gates_manager.available_gates.RemoveAt(i);
+                    Gates_manager.gates_selector.Controls.Remove(template);
+                    break;
+                }
+                ++i;
+            }
+            while (Gates_manager.available_gates.Count > i)
+            {
+                Gates_manager.available_gates[i].template.Left -= 90;
+                Gates_manager.available_gates[i++].set_starting_location();
+            }
         }
     }
 

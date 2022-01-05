@@ -6,7 +6,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public class Connection_point
     {
@@ -15,7 +15,7 @@ namespace Symulator_ukladow_logicznych
         public List<Line_connection> connection = new List<Line_connection>();
         Line_connection tmp_to_remove = null;
 
-        Object parent;
+        public Object parent;
 
         public bool value = false;
 

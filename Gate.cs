@@ -6,13 +6,13 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Drawing;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public class Gate
     {
         public Label label_gate = new Label();
         public Panel board, container = new Panel();
-        protected ContextMenuStrip menu_strip;
+        public ContextMenuStrip menu_strip = new ContextMenuStrip();
         public Gate_dragging draggable;
 
         public Gate(string text, Point location)
@@ -32,8 +32,8 @@ namespace Symulator_ukladow_logicznych
 
             draggable = new Gate_dragging(label_gate, container, board);
 
-            menu_strip = new ContextMenuStrip();
             menu_strip.Items.Add("Delete");
+            menu_strip.ShowImageMargin = false;
 
             container.ContextMenuStrip = menu_strip;
         }

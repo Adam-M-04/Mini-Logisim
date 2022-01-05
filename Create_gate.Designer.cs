@@ -1,5 +1,5 @@
 ﻿
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     partial class Create_gate
     {

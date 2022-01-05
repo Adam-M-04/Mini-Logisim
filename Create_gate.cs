@@ -8,12 +8,13 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 
-namespace Symulator_ukladow_logicznych
+namespace Logic_gate_simulator
 {
     public partial class Create_gate : Form
     {
         public Output_gate caller = null;
         Random rnd = new Random();
+        window_type type;
 
         public Create_gate()
         {
@@ -37,12 +38,18 @@ namespace Symulator_ukladow_logicznych
                 return;
             }
             Close();
-            caller.create_new_gate(Gate_name_textbox.Text, label_selected_color.BackColor);
+            if (type == window_type.Creating) caller.create_new_gate(Gate_name_textbox.Text, label_selected_color.BackColor);
+            else Gates_manager.Save_edited_gate(Gate_name_textbox.Text, label_selected_color.BackColor);
         }
 
         public void Random_color()
         {
             label_selected_color.BackColor = Color.FromArgb(rnd.Next(0,255), rnd.Next(0, 255), rnd.Next(0, 255));
+        }
+
+        public void Clear()
+        {
+            Gate_name_textbox.Text = "";
         }
 
         private void select_color_Click(object sender, EventArgs e)
@@ -52,5 +59,31 @@ namespace Symulator_ukladow_logicznych
                 label_selected_color.BackColor = color_selector.Color;
             }
         }
+
+        public void Open(Output_gate caller)
+        {
+            type = window_type.Creating;
+            this.caller = caller;
+            create_button.Text = "Create";
+            Random_color();
+            Clear();
+            ShowDialog();
+        }
+
+        public void Load_gate_settings()
+        {
+            if (Gates_manager.current_edited == null) return;
+            type = window_type.Editing;
+            create_button.Text = "Save";
+            Gate_name_textbox.Text = Gates_manager.current_edited.name;
+            label_selected_color.BackColor = Gates_manager.current_edited.color;
+            ShowDialog();
+        }
+    }
+
+    enum window_type
+    {
+        Creating,
+        Editing
     }
 }
