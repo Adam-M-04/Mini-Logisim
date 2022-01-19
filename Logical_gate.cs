@@ -10,7 +10,7 @@ namespace Logic_gate_simulator
 {
     public class Logical_gate : Gate
     {
-        int inputs_number;
+        public int inputs_number, index;
         bool[] input_values;
         public Connection_point[] input_points;
         public Connection_point output_point;
@@ -18,8 +18,9 @@ namespace Logic_gate_simulator
         Connection_point custom_gate_output;
         Func<bool[], bool> calculate_output;
 
-        public Logical_gate(string text, int inputs_number, Func<bool[], bool> calculate_output, Point location, Color color, List<Connection_point> custom_gate_inputs = null, Connection_point custom_gate_output = null): base(text, location)
+        public Logical_gate(string text, int inputs_number, Func<bool[], bool> calculate_output, Point location, Color color, int index, List<Connection_point> custom_gate_inputs = null, Connection_point custom_gate_output = null): base(text, location)
         {
+            this.index = index;
             this.calculate_output = calculate_output;
             this.inputs_number = inputs_number;
             this.custom_gate_inputs = custom_gate_inputs;
@@ -111,6 +112,21 @@ namespace Logic_gate_simulator
             foreach (Connection_point cp in input_points)
             {
                 if (cp.connection.Count > 0) cp.connection[0].show_gate_tree();
+            }
+        }
+
+        public void Get_gates_and_connections(List<Gate_values> gates_arr, List<Connection> connections_arr, int prev_index, int point_index)
+        {
+            int curr_index = Gates_manager.Index_of_gate(this, gates_arr);
+            if (curr_index == -1)
+            {
+                gates_arr.Add(new Gate_values(index, container.Location, this));
+                curr_index = gates_arr.Count - 1;
+            }
+            connections_arr.Add(new Connection(curr_index, prev_index, point_index));
+            for(int i=0; i<input_points.Length; ++i)
+            {
+                if (input_points[i].connection.Count > 0) input_points[i].connection[0].Get_gates_and_connections(gates_arr, connections_arr, curr_index, i);
             }
         }
     }

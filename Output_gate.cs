@@ -81,5 +81,11 @@ namespace Logic_gate_simulator
             Gates_manager.board.Controls.Add(container);
             if (point.connection.Count > 0) point.connection[0].show_gate_tree();
         }
+
+        public void Get_gates_and_connections(List<Gate_values> gates_arr, List<Connection> connections_arr)
+        {
+            gates_arr.Add(new Gate_values(1, container.Location));
+            if (point.connection.Count > 0) point.connection[0].Get_gates_and_connections(gates_arr, connections_arr, gates_arr.Count - 1, 0);
+        }
     }
 }

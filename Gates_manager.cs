@@ -80,5 +80,13 @@ namespace Logic_gate_simulator
             board.Controls.Clear();
             gates.Clear();
         }
+        public static int Index_of_gate(Object gate, List<Gate_values> gates_arr)
+        {
+            for (int i=0; i<gates_arr.Count; ++i)
+            {
+                if (gates_arr[i].gate_ref == gate) return i;
+            }
+            return -1;
+        }
     }
 }

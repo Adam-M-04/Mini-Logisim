@@ -12,8 +12,8 @@ namespace Logic_gate_simulator
     {
         public Label template = new Label();
         Object tmp_gate_ref;
-        Template_type type;
-        int inputs_number, real_height, real_width = 80;
+        public Template_type type;
+        public int inputs_number, real_height, real_width = 80, index;
         public Color color;
         public string name;
         Func<bool[], bool> calc_function;
@@ -28,6 +28,7 @@ namespace Logic_gate_simulator
 
         public Gate_Template(string name, int inputs_number, Func<bool[], bool> calc_function)
         {
+            index = Gates_manager.available_gates.Count;
             type = Template_type.Logical_gate;
             this.calc_function = calc_function;
             calculate_input_points(inputs_number);
@@ -37,6 +38,7 @@ namespace Logic_gate_simulator
 
         public Gate_Template(string name, List<Connection_point> start_points, Connection_point output_point, Color color)
         {
+            index = Gates_manager.available_gates.Count;
             type = Template_type.Custom_logical_gate;
             this.output_point = output_point;
             set_style(name, color);
@@ -155,14 +157,17 @@ namespace Logic_gate_simulator
             Point location = template.Location;
             location.X = (int)Math.Round(location.X / 10.0) * 10 - Gates_manager.board.Left;
             location.Y = (int)Math.Round(location.Y / 10.0) * 10 - Gates_manager.board.Top;
+            Add_gate(location);
+            template_to_default();
+        }
 
+        public void Add_gate(Point location)
+        {
             if (type == Template_type.Input_gate) tmp_gate_ref = new Input_gate(location);
             else if (type == Template_type.Output_gate) tmp_gate_ref = new Output_gate(location);
-            else if (type == Template_type.Custom_logical_gate) tmp_gate_ref = new Logical_gate(template.Text, inputs_number, null, location, color, start_points, output_point);
-            else tmp_gate_ref = new Logical_gate(template.Text, inputs_number, calc_function, location, color);
+            else if (type == Template_type.Custom_logical_gate) tmp_gate_ref = new Logical_gate(template.Text, inputs_number, null, location, color, index, start_points, output_point);
+            else tmp_gate_ref = new Logical_gate(template.Text, inputs_number, calc_function, location, color, index);
             Gates_manager.gates.Add(tmp_gate_ref);
-
-            template_to_default();
         }
 
         void template_to_default()
@@ -175,7 +180,7 @@ namespace Logic_gate_simulator
             template.SendToBack();
         }
 
-        void edit_gate()
+        public void edit_gate()
         {
             Gates_manager.current_edited = this;
             Gates_manager.Gates_Enabled(false, this);
@@ -209,6 +214,17 @@ namespace Logic_gate_simulator
                 Gates_manager.available_gates[i++].set_starting_location();
             }
         }
+
+        public Board_values Get_gates_and_connections()
+        {
+            List<Gate_values> gates_arr = new List<Gate_values>();
+            List<Connection> connections_arr = new List<Connection>();
+            ((Output_gate)output_point.parent).Get_gates_and_connections(gates_arr, connections_arr);
+
+            return new Board_values(gates_arr, connections_arr);
+        }
+
+        
     }
 
     public enum Template_type

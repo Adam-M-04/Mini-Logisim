@@ -11,7 +11,7 @@ namespace Logic_gate_simulator
 {
     public class Line_connection
     {
-        Connection_point p1, p2;
+        public Connection_point p1, p2;
         private const int line_size = 6;
         Label start_point, end_point;
         ContextMenuStrip menu_strip = new ContextMenuStrip();
@@ -183,6 +183,12 @@ namespace Logic_gate_simulator
             display();
             if (p1.parent.GetType().Name == "Logical_gate") ((Logical_gate)p1.parent).show_gate_tree();
             else ((Input_gate)p1.parent).show_gate_tree();
+        }
+
+        public void Get_gates_and_connections(List<Gate_values> gates_arr, List<Connection> connections_arr, int prev_index, int point_index)
+        {
+            if (p1.parent.GetType().Name == "Logical_gate") ((Logical_gate)p1.parent).Get_gates_and_connections(gates_arr, connections_arr, prev_index, point_index);
+            else ((Input_gate)p1.parent).Get_gates_and_connections(gates_arr, connections_arr, prev_index, point_index);
         }
     }
 }

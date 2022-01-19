@@ -73,5 +73,16 @@ namespace Logic_gate_simulator
         {
             Gates_manager.board.Controls.Add(container);
         }
+
+        public void Get_gates_and_connections(List<Gate_values> gates_arr, List<Connection> connections_arr, int prev_index, int point_index)
+        {
+            int curr_index = Gates_manager.Index_of_gate(this, gates_arr);
+            if (curr_index == -1)
+            {
+                gates_arr.Add(new Gate_values(0, container.Location, this));
+                curr_index = gates_arr.Count - 1;
+            }
+            connections_arr.Add(new Connection(curr_index, prev_index, point_index));
+        }
     }
 }

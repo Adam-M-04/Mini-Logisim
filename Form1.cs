@@ -19,6 +19,7 @@ namespace Logic_gate_simulator
         public Form1()
         {
             InitializeComponent();
+            
             form = this;
             menu = menuStrip;
             menu.Items[1].Click += new EventHandler((sender, e) => { gate_creator.Load_gate_settings(); });
@@ -29,7 +30,7 @@ namespace Logic_gate_simulator
             board.Height = form.Height - 170;
 
             gates_selector_panel.Left = 10;
-            gates_selector_panel.Width = form.Width - 35;
+            gates_selector_panel.Width = form.Width - 35;            
         }
 
         private void Form1_Load(object sender, EventArgs e)
@@ -42,6 +43,9 @@ namespace Logic_gate_simulator
             Gates_manager.Add_gate_template(Template_type.Output_gate);
             Gates_manager.Add_gate_template("And", 2, (values) => { return values[0] && values[1]; });
             Gates_manager.Add_gate_template("Not", 1, (values) => { return !values[0]; });
+
+            Hide();
+            Project_manager.Open();
         }
 
         private void resize_handler(object sender, EventArgs e)
@@ -50,6 +54,16 @@ namespace Logic_gate_simulator
             board.Height = form.Height - 150;
 
             gates_selector_panel.Width = form.Width - 35;
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Project_manager.Save();
+        }
+
+        private void openToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            
         }
     }
 }
