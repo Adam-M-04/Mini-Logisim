@@ -38,13 +38,10 @@ namespace Logic_gate_simulator
             Gates_manager.form = this;
             Gates_manager.board = board;
             Gates_manager.gates_selector = gates_selector_panel;
-
-            Gates_manager.Add_gate_template(Template_type.Input_gate);
-            Gates_manager.Add_gate_template(Template_type.Output_gate);
-            Gates_manager.Add_gate_template("And", 2, (values) => { return values[0] && values[1]; });
-            Gates_manager.Add_gate_template("Not", 1, (values) => { return !values[0]; });
+            Gates_manager.Default_templates();
 
             Hide();
+            Project_manager.window.ProjectTitle = ProjectTitle;
             Project_manager.Open();
         }
 
@@ -63,7 +60,7 @@ namespace Logic_gate_simulator
 
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            
+            Project_manager.Open();
         }
     }
 }

@@ -13,9 +13,15 @@ namespace Logic_gate_simulator
 {
     public partial class Starting_window : Form
     {
+        public Label ProjectTitle;
         public Starting_window()
         {
             InitializeComponent();
+        }
+
+        public void Clear()
+        {
+            Project_textbox.Text = "";
         }
 
         private void Close_handler(object sender, FormClosingEventArgs e)
@@ -34,6 +40,7 @@ namespace Logic_gate_simulator
                 {
                     if (Project_manager.Load(reader.ReadToEnd()))
                     {
+                        Set_title(Path.GetFileNameWithoutExtension(dialog.FileName));
                         Project_manager.project_path = dialog.FileName;
                         Close();                       
                     }
@@ -54,16 +61,23 @@ namespace Logic_gate_simulator
             dialog.FileName = Project_textbox.Text;
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                Project_textbox.Text = dialog.FileName;
-
                 Stream myStream;
                 if ((myStream = dialog.OpenFile()) != null)
                 {
+                    Set_title(Path.GetFileNameWithoutExtension(dialog.FileName));
                     Project_manager.project_path = dialog.FileName;
+                    Gates_manager.Default_templates();
                     myStream.Close();
                     Close();
+                    Project_manager.Save();
                 }
             }
+        }
+
+        private void Set_title(string title)
+        {
+            ProjectTitle.Text = title;
+            ProjectTitle.Left = Form1.form.Width - ProjectTitle.Width - 20;
         }
     }
 }

@@ -38,6 +38,7 @@ namespace Logic_gate_simulator
 
         public static bool Load(string value)
         {
+            Gates_manager.Default_templates();
             try
             {
                 values = JsonConvert.DeserializeObject<ValuesToSave>(value);
@@ -57,6 +58,7 @@ namespace Logic_gate_simulator
 
         public static void Open()
         {
+            window.Clear();
             window.ShowDialog();
         }
     }
@@ -89,6 +91,8 @@ namespace Logic_gate_simulator
         public Gate_template_values[] templates_arr { get; set; }
         public Board_values board_state { get; set; }
         public int editing_index { get; set; }
+
+        public ValuesToSave() { templates_arr = new Gate_template_values[0]; }
     }
 
     public class Board_values

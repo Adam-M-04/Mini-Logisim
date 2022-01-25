@@ -75,6 +75,16 @@ namespace Logic_gate_simulator
             current_edited = null;
         }
 
+        public static void Default_templates()
+        {
+            Clear_board();
+            for (int i= available_gates.Count-1; i>=0; --i) available_gates[i].remove();
+            Add_gate_template(Template_type.Input_gate);
+            Add_gate_template(Template_type.Output_gate);
+            Add_gate_template("And", 2, (values) => { return values[0] && values[1]; });
+            Add_gate_template("Not", 1, (values) => { return !values[0]; });
+        }
+
         public static void Clear_board()
         {
             board.Controls.Clear();

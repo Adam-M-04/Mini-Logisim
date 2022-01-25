@@ -36,6 +36,7 @@ namespace Logic_gate_simulator
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveGateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProjectTitle = new System.Windows.Forms.Label();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -66,7 +67,7 @@ namespace Logic_gate_simulator
             this.saveGateToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(997, 28);
+            this.menuStrip.Size = new System.Drawing.Size(1235, 38);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -83,7 +84,7 @@ namespace Logic_gate_simulator
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -91,7 +92,7 @@ namespace Logic_gate_simulator
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -102,11 +103,24 @@ namespace Logic_gate_simulator
             this.saveGateToolStripMenuItem.Text = "Save gate";
             this.saveGateToolStripMenuItem.Visible = false;
             // 
+            // ProjectTitle
+            // 
+            this.ProjectTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
+            this.ProjectTitle.AutoSize = true;
+            this.ProjectTitle.BackColor = System.Drawing.Color.Transparent;
+            this.ProjectTitle.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.ProjectTitle.Location = new System.Drawing.Point(953, 0);
+            this.ProjectTitle.Name = "ProjectTitle";
+            this.ProjectTitle.Size = new System.Drawing.Size(53, 26);
+            this.ProjectTitle.TabIndex = 3;
+            this.ProjectTitle.Text = "Title";
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(997, 624);
+            this.ClientSize = new System.Drawing.Size(988, 639);
+            this.Controls.Add(this.ProjectTitle);
             this.Controls.Add(this.gates_selector_panel);
             this.Controls.Add(this.board);
             this.Controls.Add(this.menuStrip);
@@ -132,6 +146,7 @@ namespace Logic_gate_simulator
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveGateToolStripMenuItem;
+        public System.Windows.Forms.Label ProjectTitle;
     }
 }
 
