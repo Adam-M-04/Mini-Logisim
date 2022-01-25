@@ -190,5 +190,11 @@ namespace Logic_gate_simulator
             if (p1.parent.GetType().Name == "Logical_gate") ((Logical_gate)p1.parent).Get_gates_and_connections(gates_arr, connections_arr, prev_index, point_index);
             else ((Input_gate)p1.parent).Get_gates_and_connections(gates_arr, connections_arr, prev_index, point_index);
         }
+
+        public void Names_hidden(bool val)
+        {
+            if (p1.parent.GetType().Name == "Logical_gate") ((Logical_gate)p1.parent).Name_hidden(val);
+            else ((Input_gate)p1.parent).Name_hidden(val);
+        }
     }
 }

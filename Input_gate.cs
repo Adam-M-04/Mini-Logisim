@@ -13,6 +13,7 @@ namespace Logic_gate_simulator
         public Connection_point point;
 
         public bool value = false;
+        string text = null;
 
         public Input_gate(Point location) : base("0", location)
         {
@@ -83,6 +84,16 @@ namespace Logic_gate_simulator
                 curr_index = gates_arr.Count - 1;
             }
             connections_arr.Add(new Connection(curr_index, prev_index, point_index));
+        }
+
+        public void Name_hidden(bool val)
+        {
+            if (val) label_gate.Text = "";
+            else
+            {
+                if (text != null) label_gate.Text = text;
+                else text = value ? "1" : "0";
+            }
         }
     }
 }

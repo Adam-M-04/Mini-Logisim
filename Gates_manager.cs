@@ -44,7 +44,7 @@ namespace Logic_gate_simulator
         public static void Context_menu_options(bool val)
         {
             foreach (Gate_Template gt in available_gates) if(gt.menu_strip.Items.Count > 0) gt.menu_strip.Items[0].Enabled = val;
-            Form1.menu.Items[1].Visible = !val;
+            Form1.menu.Items[2].Visible = !val;
             ((Output_gate)current_edited.output_point.parent).menu_strip.Items[0].Enabled = val;
             ((Output_gate)current_edited.output_point.parent).menu_strip.Items[1].Enabled = val;
         }

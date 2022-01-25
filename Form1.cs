@@ -22,7 +22,7 @@ namespace Logic_gate_simulator
             
             form = this;
             menu = menuStrip;
-            menu.Items[1].Click += new EventHandler((sender, e) => { gate_creator.Load_gate_settings(); });
+            menu.Items[2].Click += new EventHandler((sender, e) => { gate_creator.Load_gate_settings(); });
 
             board.Left = 10;
             board.Top = 30;
@@ -61,6 +61,16 @@ namespace Logic_gate_simulator
         private void openToolStripMenuItem_Click(object sender, EventArgs e)
         {
             Project_manager.Open();
+        }
+
+        private void hideNamesToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            foreach(Object gate in Gates_manager.gates)
+            {
+                if (gate.GetType().Name == "Logical_gate") ((Logical_gate)gate).Name_hidden(hideNamesToolStripMenuItem.Checked);
+                //if (gate.GetType().Name == "Input_gate") ((Input_gate)gate).show_gate_tree();
+            }
+            if (Gates_manager.current_edited != null) Gates_manager.current_edited.Names_hidden(hideNamesToolStripMenuItem.Checked);
         }
     }
 }

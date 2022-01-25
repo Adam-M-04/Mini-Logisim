@@ -167,6 +167,10 @@ namespace Logic_gate_simulator
             else if (type == Template_type.Output_gate) tmp_gate_ref = new Output_gate(location);
             else if (type == Template_type.Custom_logical_gate) tmp_gate_ref = new Logical_gate(template.Text, inputs_number, null, location, color, index, start_points, output_point);
             else tmp_gate_ref = new Logical_gate(template.Text, inputs_number, calc_function, location, color, index);
+
+            if (tmp_gate_ref.GetType().Name == "Logical_gate") ((Logical_gate)tmp_gate_ref).Name_hidden(Form1.form.hideNamesToolStripMenuItem.Checked);
+            if (tmp_gate_ref.GetType().Name == "Input_gate") ((Input_gate)tmp_gate_ref).Name_hidden(Form1.form.hideNamesToolStripMenuItem.Checked);
+
             Gates_manager.gates.Add(tmp_gate_ref);
         }
 
@@ -224,7 +228,10 @@ namespace Logic_gate_simulator
             return new Board_values(gates_arr, connections_arr);
         }
 
-        
+        public void Names_hidden(bool val)
+        {
+            output_point.connection[0].Names_hidden(val);
+        }
     }
 
     public enum Template_type

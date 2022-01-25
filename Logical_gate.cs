@@ -17,9 +17,11 @@ namespace Logic_gate_simulator
         List<Connection_point> custom_gate_inputs;
         Connection_point custom_gate_output;
         Func<bool[], bool> calculate_output;
+        string text;
 
         public Logical_gate(string text, int inputs_number, Func<bool[], bool> calculate_output, Point location, Color color, int index, List<Connection_point> custom_gate_inputs = null, Connection_point custom_gate_output = null): base(text, location)
         {
+            this.text = text;
             this.index = index;
             this.calculate_output = calculate_output;
             this.inputs_number = inputs_number;
@@ -86,6 +88,13 @@ namespace Logic_gate_simulator
             output_point.update_value(new_val);
         }
 
+        public void Name_hidden(bool val)
+        {
+            if (val) label_gate.Text = "";
+            else label_gate.Text = text;
+            foreach(Connection_point cp in input_points) if (cp.connection.Count > 0) cp.connection[0].Names_hidden(val);
+        }
+
         public bool check_for_connection(Logical_gate lg)
         {
             if (this == lg) return true;
@@ -109,6 +118,7 @@ namespace Logic_gate_simulator
         public void show_gate_tree()
         {
             Gates_manager.board.Controls.Add(container);
+            if (Form1.form.hideNamesToolStripMenuItem.Checked) label_gate.Text = "";
             foreach (Connection_point cp in input_points)
             {
                 if (cp.connection.Count > 0) cp.connection[0].show_gate_tree();

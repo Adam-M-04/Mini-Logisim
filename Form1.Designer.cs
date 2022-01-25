@@ -37,6 +37,8 @@ namespace Logic_gate_simulator
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveGateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProjectTitle = new System.Windows.Forms.Label();
+            this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.hideNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -64,10 +66,11 @@ namespace Logic_gate_simulator
             this.menuStrip.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.projectToolStripMenuItem,
+            this.optionsToolStripMenuItem,
             this.saveGateToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
-            this.menuStrip.Size = new System.Drawing.Size(1235, 38);
+            this.menuStrip.Size = new System.Drawing.Size(988, 28);
             this.menuStrip.TabIndex = 2;
             this.menuStrip.Text = "menuStrip1";
             // 
@@ -115,6 +118,22 @@ namespace Logic_gate_simulator
             this.ProjectTitle.TabIndex = 3;
             this.ProjectTitle.Text = "Title";
             // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hideNamesToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // hideNamesToolStripMenuItem
+            // 
+            this.hideNamesToolStripMenuItem.CheckOnClick = true;
+            this.hideNamesToolStripMenuItem.Name = "hideNamesToolStripMenuItem";
+            this.hideNamesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.hideNamesToolStripMenuItem.Text = "Hide names";
+            this.hideNamesToolStripMenuItem.Click += new System.EventHandler(this.hideNamesToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -147,6 +166,8 @@ namespace Logic_gate_simulator
         private System.Windows.Forms.ToolStripMenuItem openToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveGateToolStripMenuItem;
         public System.Windows.Forms.Label ProjectTitle;
+        private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
+        public System.Windows.Forms.ToolStripMenuItem hideNamesToolStripMenuItem;
     }
 }
 
