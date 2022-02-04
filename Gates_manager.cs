@@ -15,6 +15,7 @@ namespace Logic_gate_simulator
         public static Form1 form;
         public static Panel board, gates_selector;
         public static Gate_Template current_edited = null;
+        public static byte input_gate_points_number = 1;
 
         public static void Add_gate_template(string name, int inputs_number, Func<bool[], bool> calc_function)
         {
@@ -69,7 +70,7 @@ namespace Logic_gate_simulator
             }
 
             current_edited.set_style(new_name, new_color);
-            current_edited.calculate_input_points(start_points);
+            current_edited.calculate_real_height(start_points);
             Clear_board();
             Gates_Enabled(true);
             current_edited = null;
@@ -78,7 +79,7 @@ namespace Logic_gate_simulator
         public static void Default_templates()
         {
             Clear_board();
-            for (int i= available_gates.Count-1; i>=0; --i) available_gates[i].remove();
+            for (int i = available_gates.Count-1; i>=0; --i) available_gates[i].remove();
             Add_gate_template(Template_type.Input_gate);
             Add_gate_template(Template_type.Output_gate);
             Add_gate_template("And", 2, (values) => { return values[0] && values[1]; });

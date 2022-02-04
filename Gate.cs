@@ -30,7 +30,7 @@ namespace Logic_gate_simulator
             container.Location = location;
             container.Tag = "gate";
 
-            draggable = new Gate_dragging(label_gate, container, board);
+            draggable = new Gate_dragging(label_gate, container);
 
             menu_strip.Items.Add("Delete");
             menu_strip.ShowImageMargin = false;

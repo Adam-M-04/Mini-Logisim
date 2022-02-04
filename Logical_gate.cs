@@ -10,7 +10,7 @@ namespace Logic_gate_simulator
 {
     public class Logical_gate : Gate
     {
-        public int inputs_number, index;
+        public int inputs_number;
         bool[] input_values;
         public Connection_point[] input_points;
         public Connection_point output_point;
@@ -18,11 +18,12 @@ namespace Logic_gate_simulator
         Connection_point custom_gate_output;
         Func<bool[], bool> calculate_output;
         string text;
+        public Gate_Template template;
 
-        public Logical_gate(string text, int inputs_number, Func<bool[], bool> calculate_output, Point location, Color color, int index, List<Connection_point> custom_gate_inputs = null, Connection_point custom_gate_output = null): base(text, location)
+        public Logical_gate(string text, int inputs_number, Func<bool[], bool> calculate_output, Point location, Color color, Gate_Template template, List<Connection_point> custom_gate_inputs = null, Connection_point custom_gate_output = null): base(text, location)
         {
             this.text = text;
-            this.index = index;
+            this.template = template;
             this.calculate_output = calculate_output;
             this.inputs_number = inputs_number;
             this.custom_gate_inputs = custom_gate_inputs;
@@ -101,6 +102,19 @@ namespace Logic_gate_simulator
             return output_point.check_for_connection(lg);
         }
 
+        public bool Check_if_contains_gate(Gate_Template template)
+        {
+            if (this.template == template) return true;
+            foreach (Connection_point cp in input_points)
+            {
+                if (cp.connection.Count > 0)
+                {
+                    if (cp.connection[0].Check_if_contains_gate(template)) return true;
+                }
+            }
+            return false;
+        }
+
         public void remove()
         {
             Gates_manager.gates.Remove(this);
@@ -130,7 +144,7 @@ namespace Logic_gate_simulator
             int curr_index = Gates_manager.Index_of_gate(this, gates_arr);
             if (curr_index == -1)
             {
-                gates_arr.Add(new Gate_values(index, container.Location, this));
+                gates_arr.Add(new Gate_values(Gates_manager.available_gates.IndexOf(template), container.Location, this));
                 curr_index = gates_arr.Count - 1;
             }
             connections_arr.Add(new Connection(curr_index, prev_index, point_index));

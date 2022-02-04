@@ -40,7 +40,9 @@ namespace Logic_gate_simulator
                 {
                     if (Project_manager.Load(reader.ReadToEnd()))
                     {
-                        Set_title(Path.GetFileNameWithoutExtension(dialog.FileName));
+                        string title = Path.GetFileNameWithoutExtension(dialog.FileName);
+                        if (title.Length > 50) title = title.Substring(0, 50);
+                        Set_title(title);
                         Project_manager.project_path = dialog.FileName;
                         Close();                       
                     }

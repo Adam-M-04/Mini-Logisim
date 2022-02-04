@@ -35,10 +35,11 @@ namespace Logic_gate_simulator
             this.projectToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.saveGateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.ProjectTitle = new System.Windows.Forms.Label();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.saveGateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.ProjectTitle = new System.Windows.Forms.Label();
+            this.clearBoardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -56,7 +57,7 @@ namespace Logic_gate_simulator
             this.gates_selector_panel.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
             this.gates_selector_panel.AutoScroll = true;
             this.gates_selector_panel.BackColor = System.Drawing.Color.Transparent;
-            this.gates_selector_panel.Location = new System.Drawing.Point(0, 526);
+            this.gates_selector_panel.Location = new System.Drawing.Point(0, 527);
             this.gates_selector_panel.Name = "gates_selector_panel";
             this.gates_selector_panel.Size = new System.Drawing.Size(969, 86);
             this.gates_selector_panel.TabIndex = 1;
@@ -87,7 +88,7 @@ namespace Logic_gate_simulator
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -95,9 +96,26 @@ namespace Logic_gate_simulator
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
+            // 
+            // optionsToolStripMenuItem
+            // 
+            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.hideNamesToolStripMenuItem,
+            this.clearBoardToolStripMenuItem});
+            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
+            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
+            this.optionsToolStripMenuItem.Text = "Options";
+            // 
+            // hideNamesToolStripMenuItem
+            // 
+            this.hideNamesToolStripMenuItem.CheckOnClick = true;
+            this.hideNamesToolStripMenuItem.Name = "hideNamesToolStripMenuItem";
+            this.hideNamesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.hideNamesToolStripMenuItem.Text = "Hide names";
+            this.hideNamesToolStripMenuItem.Click += new System.EventHandler(this.hideNamesToolStripMenuItem_Click);
             // 
             // saveGateToolStripMenuItem
             // 
@@ -114,31 +132,22 @@ namespace Logic_gate_simulator
             this.ProjectTitle.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ProjectTitle.Location = new System.Drawing.Point(953, 0);
             this.ProjectTitle.Name = "ProjectTitle";
-            this.ProjectTitle.Size = new System.Drawing.Size(53, 26);
+            this.ProjectTitle.Size = new System.Drawing.Size(42, 21);
             this.ProjectTitle.TabIndex = 3;
             this.ProjectTitle.Text = "Title";
             // 
-            // optionsToolStripMenuItem
+            // clearBoardToolStripMenuItem
             // 
-            this.optionsToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.hideNamesToolStripMenuItem});
-            this.optionsToolStripMenuItem.Name = "optionsToolStripMenuItem";
-            this.optionsToolStripMenuItem.Size = new System.Drawing.Size(75, 24);
-            this.optionsToolStripMenuItem.Text = "Options";
-            // 
-            // hideNamesToolStripMenuItem
-            // 
-            this.hideNamesToolStripMenuItem.CheckOnClick = true;
-            this.hideNamesToolStripMenuItem.Name = "hideNamesToolStripMenuItem";
-            this.hideNamesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.hideNamesToolStripMenuItem.Text = "Hide names";
-            this.hideNamesToolStripMenuItem.Click += new System.EventHandler(this.hideNamesToolStripMenuItem_Click);
+            this.clearBoardToolStripMenuItem.Name = "clearBoardToolStripMenuItem";
+            this.clearBoardToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.clearBoardToolStripMenuItem.Text = "Clear board";
+            this.clearBoardToolStripMenuItem.Click += new System.EventHandler(this.clearBoardToolStripMenuItem_Click);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(988, 639);
+            this.ClientSize = new System.Drawing.Size(988, 625);
             this.Controls.Add(this.ProjectTitle);
             this.Controls.Add(this.gates_selector_panel);
             this.Controls.Add(this.board);
@@ -168,6 +177,7 @@ namespace Logic_gate_simulator
         public System.Windows.Forms.Label ProjectTitle;
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem hideNamesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem clearBoardToolStripMenuItem;
     }
 }
 

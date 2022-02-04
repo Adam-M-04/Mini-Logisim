@@ -48,7 +48,7 @@ namespace Logic_gate_simulator
         private void resize_handler(object sender, EventArgs e)
         {
             board.Width = form.Width - 35;
-            board.Height = form.Height - 150;
+            board.Height = form.Height - 170;
 
             gates_selector_panel.Width = form.Width - 35;
         }
@@ -71,6 +71,17 @@ namespace Logic_gate_simulator
                 //if (gate.GetType().Name == "Input_gate") ((Input_gate)gate).show_gate_tree();
             }
             if (Gates_manager.current_edited != null) Gates_manager.current_edited.Names_hidden(hideNamesToolStripMenuItem.Checked);
+        }
+
+        private void clearBoardToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (Gates_manager.current_edited != null)
+            {
+                Gates_manager.Context_menu_options(true);
+                Gates_manager.Gates_Enabled(true);
+                Gates_manager.current_edited = null;
+            }
+            Gates_manager.Clear_board();
         }
     }
 }

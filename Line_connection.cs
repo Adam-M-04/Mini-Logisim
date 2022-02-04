@@ -173,6 +173,12 @@ namespace Logic_gate_simulator
             return p2.check_for_connection(lg);
         }
 
+        public bool Check_if_contains_gate(Gate_Template template)
+        {
+            if (p1.parent.GetType().Name == "Logical_gate") return ((Logical_gate)p1.parent).Check_if_contains_gate(template);
+            return false;
+        }
+
         public void search_for_start_points(List<Connection_point> points)
         {
             p1.search_for_start_points(points);
@@ -188,7 +194,7 @@ namespace Logic_gate_simulator
         public void Get_gates_and_connections(List<Gate_values> gates_arr, List<Connection> connections_arr, int prev_index, int point_index)
         {
             if (p1.parent.GetType().Name == "Logical_gate") ((Logical_gate)p1.parent).Get_gates_and_connections(gates_arr, connections_arr, prev_index, point_index);
-            else ((Input_gate)p1.parent).Get_gates_and_connections(gates_arr, connections_arr, prev_index, point_index);
+            else ((Input_gate)p1.parent).Get_gates_and_connections(gates_arr, connections_arr, prev_index, point_index, p1);
         }
 
         public void Names_hidden(bool val)

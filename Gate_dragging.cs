@@ -10,28 +10,23 @@ namespace Logic_gate_simulator
 {
     public class Gate_dragging
     {
-        Label label;
-        Panel panel, board;
+        Panel panel;
         Size mouseOffset;
         bool is_dragged = false;
         Point starting_location;
 
-        public Gate_dragging(Label label, Panel panel, Panel board)
+        public Gate_dragging(Label label, Panel panel)
         {
-            this.label = label;
             this.panel = panel;
-            this.board = board;
 
-            label.MouseDown += new MouseEventHandler(control_MouseDown);
-            label.MouseUp += new MouseEventHandler(control_MouseUp);
-            label.MouseMove += new MouseEventHandler(control_MouseMove);
+            Add_Events(label);
         }
 
         void control_MouseDown(object sender, MouseEventArgs e)
         {
             if(e.Button == MouseButtons.Left)
             {
-                label.Cursor = Cursors.Hand;
+                ((Label)sender).Cursor = Cursors.Hand;
                 panel.BringToFront();
 
                 mouseOffset = new Size(e.Location);
@@ -46,7 +41,7 @@ namespace Logic_gate_simulator
         {
             if (true)
             {
-                label.Cursor = Cursors.Default;
+                ((Label)sender).Cursor = Cursors.Default;
                 panel.SendToBack();
 
                 // turning off dragging
@@ -74,6 +69,13 @@ namespace Logic_gate_simulator
                 panel.Left = (int)(Math.Round(panel.Left / 10.0) * 10);
                 panel.Top = (int)(Math.Round(panel.Top / 10.0) * 10);
             }
+        }
+
+        public void Add_Events(Label label)
+        {
+            label.MouseDown += new MouseEventHandler(control_MouseDown);
+            label.MouseUp += new MouseEventHandler(control_MouseUp);
+            label.MouseMove += new MouseEventHandler(control_MouseMove);
         }
     }
 }

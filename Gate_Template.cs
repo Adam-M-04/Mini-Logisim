@@ -13,7 +13,7 @@ namespace Logic_gate_simulator
         public Label template = new Label();
         Object tmp_gate_ref;
         public Template_type type;
-        public int inputs_number, real_height, real_width = 80, index;
+        public int inputs_number, real_height, real_width = 80;
         public Color color;
         public string name;
         Func<bool[], bool> calc_function;
@@ -28,21 +28,19 @@ namespace Logic_gate_simulator
 
         public Gate_Template(string name, int inputs_number, Func<bool[], bool> calc_function)
         {
-            index = Gates_manager.available_gates.Count;
             type = Template_type.Logical_gate;
             this.calc_function = calc_function;
-            calculate_input_points(inputs_number);
+            calculate_real_height(inputs_number);
             set_style(name, Color.Wheat);
             control_settings();
         }
 
         public Gate_Template(string name, List<Connection_point> start_points, Connection_point output_point, Color color)
         {
-            index = Gates_manager.available_gates.Count;
             type = Template_type.Custom_logical_gate;
             this.output_point = output_point;
             set_style(name, color);
-            calculate_input_points(start_points);
+            calculate_real_height(start_points);
 
             menu_strip.ShowImageMargin = false;
             menu_strip.Items.Add("Edit");
@@ -58,21 +56,48 @@ namespace Logic_gate_simulator
         {
             this.type = type;
             set_style(type == Template_type.Input_gate ? "Input" : "Output");
+
+            if(type == Template_type.Input_gate)
+            {
+                menu_strip.ShowImageMargin = false;
+                ToolStripMenuItem item = new ToolStripMenuItem("Output points");
+                for(int i=0; i<4; ++i)
+                {
+                    ToolStripMenuItem subitem = new ToolStripMenuItem(Math.Pow(2,i).ToString());
+                    item.DropDownItems.Add(subitem);
+                    item.DropDownItems[i].Click += new EventHandler((s, e)=> 
+                    {
+                        foreach (ToolStripMenuItem tsmi in item.DropDownItems) tsmi.Checked = false;
+                        ((ToolStripMenuItem)s).Checked = true;
+                        Gates_manager.input_gate_points_number = Convert.ToByte(((ToolStripMenuItem)s).Text);
+                        calculate_real_height();
+                    });
+                }
+                ((ToolStripMenuItem)item.DropDownItems[0]).Checked = true;
+                menu_strip.Items.Add(item);
+            }
+            template.ContextMenuStrip = menu_strip;
+
             control_settings();
-            real_height = 30;
+            if (type == Template_type.Input_gate) calculate_real_height();
+            else real_height = 30;
             real_width = 30;
         }
 
-        public void calculate_input_points(List<Connection_point> start_points)
+        public void calculate_real_height(List<Connection_point> start_points)
         {
             this.start_points = start_points;
             inputs_number = start_points.Count;
             real_height = inputs_number * 20 + 10;
         }
-        public void calculate_input_points(int inputs_number)
+        public void calculate_real_height(int inputs_number)
         {
             this.inputs_number = inputs_number;
             real_height = inputs_number * 20 + 10;
+        }
+        public void calculate_real_height()
+        {
+            real_height = Gates_manager.input_gate_points_number * 20 + 10;
         }
 
         public void set_style(string name, Color color)
@@ -165,8 +190,8 @@ namespace Logic_gate_simulator
         {
             if (type == Template_type.Input_gate) tmp_gate_ref = new Input_gate(location);
             else if (type == Template_type.Output_gate) tmp_gate_ref = new Output_gate(location);
-            else if (type == Template_type.Custom_logical_gate) tmp_gate_ref = new Logical_gate(template.Text, inputs_number, null, location, color, index, start_points, output_point);
-            else tmp_gate_ref = new Logical_gate(template.Text, inputs_number, calc_function, location, color, index);
+            else if (type == Template_type.Custom_logical_gate) tmp_gate_ref = new Logical_gate(template.Text, inputs_number, null, location, color, this, start_points, output_point);
+            else tmp_gate_ref = new Logical_gate(template.Text, inputs_number, calc_function, location, color, this);
 
             if (tmp_gate_ref.GetType().Name == "Logical_gate") ((Logical_gate)tmp_gate_ref).Name_hidden(Form1.form.hideNamesToolStripMenuItem.Checked);
             if (tmp_gate_ref.GetType().Name == "Input_gate") ((Input_gate)tmp_gate_ref).Name_hidden(Form1.form.hideNamesToolStripMenuItem.Checked);
@@ -200,8 +225,25 @@ namespace Logic_gate_simulator
 
         public void remove()
         {
-            int i = 0;
-            if(this == Gates_manager.current_edited) { Gates_manager.Context_menu_options(true); Gates_manager.Gates_Enabled(true); Gates_manager.Clear_board(); }
+            int i = Math.Min(Gates_manager.available_gates.IndexOf(this) + 1, 4);
+            while (i < Gates_manager.available_gates.Count && i > 3)
+            {
+                if (Gates_manager.available_gates[i].Check_if_contains_gate(this))
+                {
+                    MessageBox.Show("This logical gate cannot be deleted because it is in use in another logical gate");
+                    return;
+                }
+                ++i;
+            }
+            i = 0;
+
+            if(this == Gates_manager.current_edited) 
+            { 
+                Gates_manager.Context_menu_options(true); 
+                Gates_manager.Gates_Enabled(true); 
+                Gates_manager.Clear_board();
+                Gates_manager.current_edited = null;
+            }
             while (Gates_manager.available_gates.Count > i)
             {
                 if(Gates_manager.available_gates[i] == this)
@@ -217,6 +259,23 @@ namespace Logic_gate_simulator
                 Gates_manager.available_gates[i].template.Left -= 90;
                 Gates_manager.available_gates[i++].set_starting_location();
             }
+            for(i=0; i<Gates_manager.gates.Count; ++i)
+            {
+                if(Gates_manager.gates[i].GetType().Name == "Logical_gate")
+                {
+                    Logical_gate gate = (Logical_gate)Gates_manager.gates[i];
+                    if (gate.template == this)
+                    {
+                        gate.remove();
+                        i--;
+                    }
+                }
+            }    
+        }
+
+        public bool Check_if_contains_gate(Gate_Template template)
+        {
+            return output_point.connection[0].Check_if_contains_gate(template);
         }
 
         public Board_values Get_gates_and_connections()
