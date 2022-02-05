@@ -68,7 +68,7 @@ namespace Logic_gate_simulator
             foreach(Object gate in Gates_manager.gates)
             {
                 if (gate.GetType().Name == "Logical_gate") ((Logical_gate)gate).Name_hidden(hideNamesToolStripMenuItem.Checked);
-                //if (gate.GetType().Name == "Input_gate") ((Input_gate)gate).show_gate_tree();
+                if (gate.GetType().Name == "Input_gate") ((Input_gate)gate).Name_hidden(hideNamesToolStripMenuItem.Checked);
             }
             if (Gates_manager.current_edited != null) Gates_manager.current_edited.Names_hidden(hideNamesToolStripMenuItem.Checked);
         }

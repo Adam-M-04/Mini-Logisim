@@ -130,7 +130,8 @@ namespace Logic_gate_simulator
                             (byte)input_gate.points.Count, 
                             Convert.ToInt32(input_gate.value_label.Text),
                             input_gate.negative_bit,
-                            input_gate.values.Last()
+                            input_gate.values.Last(),
+                            input_gate.text
                         )
                     );
                 }
@@ -167,8 +168,9 @@ namespace Logic_gate_simulator
             {
                 if (gate.index == 0) Gates_manager.input_gate_points_number = gate.output_points_number;
                 Gates_manager.available_gates[gate.index].Add_gate(gate.location);
-                if (gate.index == 0) ((Input_gate)Gates_manager.gates[Gates_manager.gates.Count - 1]).set_value(gate.value, gate.negative_bit, gate.negative_bit_on);
-                if (gate.index == 1) output = (Output_gate)Gates_manager.gates[Gates_manager.gates.Count - 1];
+                if (gate.index == 0) ((Input_gate)Gates_manager.gates.Last()).set_value(gate.value, gate.negative_bit, gate.negative_bit_on);
+                if (gate.index == 0) ((Input_gate)Gates_manager.gates.Last()).set_name(gate.name);
+                if (gate.index == 1) output = (Output_gate)Gates_manager.gates.Last();
             }
             foreach (Connection conn in connections)
             {
@@ -218,11 +220,12 @@ namespace Logic_gate_simulator
         public int value { get; set; }
         public bool negative_bit { get; set; }
         public bool negative_bit_on { get; set; }
+        public string name { get; set; }
 
         [JsonIgnore]
         public Object gate_ref;
 
-        public Gate_values(int index, Point location, Object gate = null, byte opn = 1, int value = 0, bool nb = false, bool nbo = false)
+        public Gate_values(int index, Point location, Object gate = null, byte opn = 1, int value = 0, bool nb = false, bool nbo = false, string name = "")
         {
             this.index = index;
             this.location = location;
@@ -231,6 +234,7 @@ namespace Logic_gate_simulator
             this.value = value;
             negative_bit = nb;
             negative_bit_on = nbo;
+            this.name = name;
         }
     }
 

@@ -10,12 +10,14 @@ namespace Logic_gate_simulator
 {
     public class Input_gate : Gate
     {
+        private const int bit_sign_index_in_menustrip = 2;
         public List<Connection_point> points = new List<Connection_point>();
         public List<Label> labels = new List<Label>();
-        public Label value_label = new Label();
+        public Label value_label = new Label(), name_label = new Label();
+        static Name_selector name_selector = new Name_selector();
 
         public List<bool> values = new List<bool>();
-        string text = null;
+        public string text = "";
         public bool negative_bit = false;
 
         public Input_gate(Point location) : base("0", location)
@@ -58,20 +60,34 @@ namespace Logic_gate_simulator
             value_label.Height = 30;
             draggable.Add_Events(value_label);
 
+            // Name label styles
+            name_label.Text = text;
+            name_label.TextAlign = ContentAlignment.MiddleCenter;
+            name_label.Left = 0;
+            name_label.Width = 40;
+            name_label.Height = 30;
+            //draggable.Add_Events(value_label);
+
             // Container styles
-            container.Height = Gates_manager.input_gate_points_number * 20 + 30;
+            container.Height = Gates_manager.input_gate_points_number * 20 + 50;
             container.Width = labels[0].Width + 5;
+
+            name_label.Top = container.Height - 30;
 
             value_label.MouseMove += new MouseEventHandler(update_lines);
             value_label.MouseUp += new MouseEventHandler(update_lines);
 
             
             menu_strip.Items[0].Click += new EventHandler((sender, e) => { remove(); });
-            if(points.Count > 1)
+
+            menu_strip.Items.Add("Change name");
+            menu_strip.Items[1].Click += new EventHandler((sender, e) => { name_selector.Open(this); });
+
+            if (points.Count > 1)
             {
                 menu_strip.ShowCheckMargin = true;
                 menu_strip.Items.Add("Sign bit");
-                menu_strip.Items[1].Click += new EventHandler((sender, e) => { 
+                menu_strip.Items[bit_sign_index_in_menustrip].Click += new EventHandler((sender, e) => { 
                     ((ToolStripMenuItem)sender).Checked = !((ToolStripMenuItem)sender).Checked; 
                     negative_bit = ((ToolStripMenuItem)sender).Checked;
                     calculate_value();
@@ -79,6 +95,7 @@ namespace Logic_gate_simulator
             }
 
             container.Controls.Add(value_label);
+            container.Controls.Add(name_label);
             board.Controls.Add(container);
 
             if (Gates_manager.Is_overlapping(container))
@@ -111,6 +128,12 @@ namespace Logic_gate_simulator
             points[index].update_value(values[index]);
         }
 
+        public void set_name(string text)
+        {
+            this.text = text;
+            name_label.Text = Form1.form.hideNamesToolStripMenuItem.Checked ? "" : text;
+        }
+
         public void set_value(int val, bool negative_bit, bool negative_bit_on = false)
         {   
             if(values.Count == 1)
@@ -121,7 +144,7 @@ namespace Logic_gate_simulator
                 return;
             }
             this.negative_bit = negative_bit;
-            ((ToolStripMenuItem)menu_strip.Items[1]).Checked = negative_bit;
+            ((ToolStripMenuItem)menu_strip.Items[bit_sign_index_in_menustrip]).Checked = negative_bit;
             if (val < -127 || val > 256) return;
             for(int i=0; i<points.Count - 1; ++i)
             {
@@ -163,7 +186,7 @@ namespace Logic_gate_simulator
             int curr_index = Gates_manager.Index_of_gate(this, gates_arr);
             if (curr_index == -1)
             {
-                gates_arr.Add(new Gate_values(0, container.Location, this, (byte)points.Count, Convert.ToSByte(value_label.Text), negative_bit, values[values.Count - 1]));
+                gates_arr.Add(new Gate_values(0, container.Location, this, (byte)points.Count, Convert.ToSByte(value_label.Text), negative_bit, values.Last(), text));
                 curr_index = gates_arr.Count - 1;
             }
             connections_arr.Add(new Connection(curr_index, prev_index, point_index, points.IndexOf(point)));
@@ -175,9 +198,9 @@ namespace Logic_gate_simulator
             for (int i = 0; i < values.Count - 1; ++i) value += Convert.ToInt32(values[i]) * (int)Math.Pow(2, i);
             if(negative_bit)
             {
-                if (values[values.Count - 1]) value = -value;
+                if (values.Last()) value = -value;
             }
-            else value += Convert.ToInt32(values[values.Count - 1]) * (int)Math.Pow(2, values.Count - 1);
+            else value += Convert.ToInt32(values.Last()) * (int)Math.Pow(2, values.Count - 1);
             value_label.Text = value.ToString();
         }
 
@@ -188,12 +211,8 @@ namespace Logic_gate_simulator
 
         public void Name_hidden(bool val)
         {
-            /*if (val) label_gate.Text = "";                                                                                DO PRZEROBIENIA
-            else
-            {
-                if (text != null) label_gate.Text = text;
-                else text = value ? "1" : "0";
-            }*/
+            if (val) name_label.Text = "";
+            else name_label.Text = text;
         }
     }
 }
