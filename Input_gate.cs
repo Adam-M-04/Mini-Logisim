@@ -35,7 +35,8 @@ namespace Logic_gate_simulator
                 new_label.Text = "0";
                 new_label.Height = 20;
                 new_label.Width = 35;
-                new_label.BackColor = Color.Pink;
+                new_label.BackColor = Color.FromArgb(164, 36, 59);
+                new_label.ForeColor = Color.White;
                 new_label.TextAlign = ContentAlignment.MiddleCenter;
                 new_label.BorderStyle = BorderStyle.FixedSingle;
                 new_label.Left = 0;
@@ -115,7 +116,7 @@ namespace Logic_gate_simulator
             int index = labels.IndexOf(label);
             values[index] = !values[index];
             label.Text = values[index] ? "1" : "0";
-            label.BackColor = values[index] ? Color.Green : Color.Pink;
+            label.BackColor = values[index] ? Color.Green : Color.FromArgb(164, 36, 59);
             calculate_value();
 
             points[index].update_value(values[index]);
@@ -124,7 +125,7 @@ namespace Logic_gate_simulator
         {
             Label label = labels[index];
             label.Text = values[index] ? "1" : "0";
-            label.BackColor = values[index] ? Color.Green : Color.Pink;
+            label.BackColor = values[index] ? Color.Green : Color.FromArgb(164, 36, 59);
             points[index].update_value(values[index]);
         }
 
@@ -178,6 +179,7 @@ namespace Logic_gate_simulator
 
         public void show_gate_tree()
         {
+            name_label.Text = Form1.form.hideNamesToolStripMenuItem.Checked ? "" : text;
             Gates_manager.board.Controls.Add(container);
         }
 
@@ -211,8 +213,7 @@ namespace Logic_gate_simulator
 
         public void Name_hidden(bool val)
         {
-            if (val) name_label.Text = "";
-            else name_label.Text = text;
+            name_label.Text = val ? "" : text;
         }
     }
 }

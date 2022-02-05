@@ -46,6 +46,7 @@ namespace Logic_gate_simulator
             // 
             // textBox_Name
             // 
+            this.textBox_Name.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.textBox_Name.Font = new System.Drawing.Font("Microsoft Tai Le", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_Name.Location = new System.Drawing.Point(8, 69);
             this.textBox_Name.MaxLength = 5;
@@ -55,19 +56,21 @@ namespace Logic_gate_simulator
             // 
             // button_confirm
             // 
+            this.button_confirm.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.button_confirm.Font = new System.Drawing.Font("Microsoft Sans Serif", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.button_confirm.Location = new System.Drawing.Point(8, 130);
             this.button_confirm.Name = "button_confirm";
             this.button_confirm.Size = new System.Drawing.Size(258, 51);
             this.button_confirm.TabIndex = 2;
             this.button_confirm.Text = "Confirm";
-            this.button_confirm.UseVisualStyleBackColor = true;
+            this.button_confirm.UseVisualStyleBackColor = false;
             this.button_confirm.Click += new System.EventHandler(this.button1_Click);
             // 
             // Name_selector
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(181)))), ((int)(((byte)(189)))));
             this.ClientSize = new System.Drawing.Size(278, 193);
             this.Controls.Add(this.button_confirm);
             this.Controls.Add(this.textBox_Name);

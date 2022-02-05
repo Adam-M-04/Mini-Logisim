@@ -47,28 +47,31 @@ namespace Logic_gate_simulator
             // 
             // Create_button
             // 
+            this.Create_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Create_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Create_button.Location = new System.Drawing.Point(12, 184);
             this.Create_button.Name = "Create_button";
             this.Create_button.Size = new System.Drawing.Size(252, 63);
             this.Create_button.TabIndex = 1;
             this.Create_button.Text = "Create";
-            this.Create_button.UseVisualStyleBackColor = true;
+            this.Create_button.UseVisualStyleBackColor = false;
             this.Create_button.Click += new System.EventHandler(this.Create_button_Click);
             // 
             // Open_button
             // 
+            this.Open_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Open_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Open_button.Location = new System.Drawing.Point(270, 184);
             this.Open_button.Name = "Open_button";
             this.Open_button.Size = new System.Drawing.Size(252, 63);
             this.Open_button.TabIndex = 2;
             this.Open_button.Text = "Open";
-            this.Open_button.UseVisualStyleBackColor = true;
+            this.Open_button.UseVisualStyleBackColor = false;
             this.Open_button.Click += new System.EventHandler(this.Open_button_Click);
             // 
             // Project_textbox
             // 
+            this.Project_textbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Project_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Project_textbox.Location = new System.Drawing.Point(12, 122);
             this.Project_textbox.MaxLength = 50;
@@ -80,7 +83,7 @@ namespace Logic_gate_simulator
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.BackColor = System.Drawing.Color.Silver;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(181)))), ((int)(((byte)(189)))));
             this.ClientSize = new System.Drawing.Size(533, 259);
             this.Controls.Add(this.Project_textbox);
             this.Controls.Add(this.Open_button);

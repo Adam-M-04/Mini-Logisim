@@ -40,6 +40,7 @@ namespace Logic_gate_simulator
             // 
             // Gate_name_textbox
             // 
+            this.Gate_name_textbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Gate_name_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.Gate_name_textbox.Location = new System.Drawing.Point(15, 77);
             this.Gate_name_textbox.MaxLength = 10;
@@ -69,13 +70,14 @@ namespace Logic_gate_simulator
             // 
             // create_button
             // 
+            this.create_button.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.create_button.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.create_button.Location = new System.Drawing.Point(15, 297);
             this.create_button.Name = "create_button";
             this.create_button.Size = new System.Drawing.Size(327, 62);
             this.create_button.TabIndex = 3;
             this.create_button.Text = "Create";
-            this.create_button.UseVisualStyleBackColor = true;
+            this.create_button.UseVisualStyleBackColor = false;
             this.create_button.Click += new System.EventHandler(this.create_button_Click);
             // 
             // label_selected_color
@@ -87,19 +89,21 @@ namespace Logic_gate_simulator
             // 
             // select_color
             // 
+            this.select_color.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.select_color.Font = new System.Drawing.Font("Microsoft Sans Serif", 12F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.select_color.Location = new System.Drawing.Point(15, 204);
             this.select_color.Name = "select_color";
             this.select_color.Size = new System.Drawing.Size(148, 51);
             this.select_color.TabIndex = 5;
             this.select_color.Text = "Select";
-            this.select_color.UseVisualStyleBackColor = true;
+            this.select_color.UseVisualStyleBackColor = false;
             this.select_color.Click += new System.EventHandler(this.select_color_Click);
             // 
             // Create_gate
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(181)))), ((int)(((byte)(189)))));
             this.ClientSize = new System.Drawing.Size(351, 371);
             this.Controls.Add(this.select_color);
             this.Controls.Add(this.label_selected_color);

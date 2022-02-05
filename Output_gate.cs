@@ -20,7 +20,8 @@ namespace Logic_gate_simulator
             // label styles
             label_gate.Height = 30;
             label_gate.Width = 30;
-            label_gate.BackColor = Color.LightCoral;
+            label_gate.BackColor = Color.FromArgb(164, 36, 59);
+            label_gate.ForeColor = Color.White;
             label_gate.Left = 5;
 
             // Container styles
@@ -53,7 +54,7 @@ namespace Logic_gate_simulator
         public void update_value(bool val)
         {
             label_gate.Text = val ? "1" : "0";
-            label_gate.BackColor = val ? Color.Green : Color.LightCoral;
+            label_gate.BackColor = val ? Color.Green : Color.FromArgb(164, 36, 59);
         }
 
         public void create_new_gate(string name, Color color)

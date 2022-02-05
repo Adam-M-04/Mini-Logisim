@@ -37,16 +37,16 @@ namespace Logic_gate_simulator
             this.openToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.optionsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.hideNamesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.clearBoardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveGateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProjectTitle = new System.Windows.Forms.Label();
-            this.clearBoardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
             // board
             // 
             this.board.AutoScroll = true;
-            this.board.BackColor = System.Drawing.Color.Silver;
+            this.board.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(206)))), ((int)(((byte)(212)))), ((int)(((byte)(218)))));
             this.board.Location = new System.Drawing.Point(0, 31);
             this.board.Name = "board";
             this.board.Size = new System.Drawing.Size(969, 471);
@@ -88,7 +88,7 @@ namespace Logic_gate_simulator
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
             this.saveToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.S)));
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
@@ -96,7 +96,7 @@ namespace Logic_gate_simulator
             // 
             this.openToolStripMenuItem.Name = "openToolStripMenuItem";
             this.openToolStripMenuItem.ShortcutKeys = ((System.Windows.Forms.Keys)((System.Windows.Forms.Keys.Control | System.Windows.Forms.Keys.O)));
-            this.openToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.openToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.openToolStripMenuItem.Text = "Open";
             this.openToolStripMenuItem.Click += new System.EventHandler(this.openToolStripMenuItem_Click);
             // 
@@ -113,9 +113,16 @@ namespace Logic_gate_simulator
             // 
             this.hideNamesToolStripMenuItem.CheckOnClick = true;
             this.hideNamesToolStripMenuItem.Name = "hideNamesToolStripMenuItem";
-            this.hideNamesToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.hideNamesToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
             this.hideNamesToolStripMenuItem.Text = "Hide names";
             this.hideNamesToolStripMenuItem.Click += new System.EventHandler(this.hideNamesToolStripMenuItem_Click);
+            // 
+            // clearBoardToolStripMenuItem
+            // 
+            this.clearBoardToolStripMenuItem.Name = "clearBoardToolStripMenuItem";
+            this.clearBoardToolStripMenuItem.Size = new System.Drawing.Size(171, 26);
+            this.clearBoardToolStripMenuItem.Text = "Clear board";
+            this.clearBoardToolStripMenuItem.Click += new System.EventHandler(this.clearBoardToolStripMenuItem_Click);
             // 
             // saveGateToolStripMenuItem
             // 
@@ -128,7 +135,7 @@ namespace Logic_gate_simulator
             // 
             this.ProjectTitle.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
             this.ProjectTitle.AutoSize = true;
-            this.ProjectTitle.BackColor = System.Drawing.Color.Transparent;
+            this.ProjectTitle.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(248)))), ((int)(((byte)(248)))));
             this.ProjectTitle.Font = new System.Drawing.Font("Century Gothic", 10F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.ProjectTitle.Location = new System.Drawing.Point(953, 0);
             this.ProjectTitle.Name = "ProjectTitle";
@@ -136,17 +143,11 @@ namespace Logic_gate_simulator
             this.ProjectTitle.TabIndex = 3;
             this.ProjectTitle.Text = "Title";
             // 
-            // clearBoardToolStripMenuItem
-            // 
-            this.clearBoardToolStripMenuItem.Name = "clearBoardToolStripMenuItem";
-            this.clearBoardToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.clearBoardToolStripMenuItem.Text = "Clear board";
-            this.clearBoardToolStripMenuItem.Click += new System.EventHandler(this.clearBoardToolStripMenuItem_Click);
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(181)))), ((int)(((byte)(189)))));
             this.ClientSize = new System.Drawing.Size(988, 625);
             this.Controls.Add(this.ProjectTitle);
             this.Controls.Add(this.gates_selector_panel);

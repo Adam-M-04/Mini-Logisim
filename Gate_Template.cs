@@ -31,7 +31,7 @@ namespace Logic_gate_simulator
             type = Template_type.Logical_gate;
             this.calc_function = calc_function;
             calculate_real_height(inputs_number);
-            set_style(name, Color.Wheat);
+            set_style(name, name == "And" ? Color.FromArgb(42,157,143) : Color.FromArgb(231,111,81));
             control_settings();
         }
 
@@ -124,7 +124,7 @@ namespace Logic_gate_simulator
             template.Top = 25;
             template.Left = Gates_manager.available_gates.Count * 90 + 10;
             template.Text = name;
-            template.BackColor = Color.Wheat;
+            template.BackColor = Color.FromArgb(233,236,239);
             template.Height = 50;
             template.Width = 80;
             template.TextAlign = ContentAlignment.MiddleCenter;
@@ -220,7 +220,7 @@ namespace Logic_gate_simulator
         public void Disabled(bool val)
         {
             disabled = val;
-            template.BackColor = val ? Color.DarkGray : Color.Wheat;
+            template.BackColor = val ? Color.FromArgb(52, 58, 64) : Color.FromArgb(233, 236, 239);
         }
 
         public void remove()
