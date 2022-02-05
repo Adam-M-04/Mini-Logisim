@@ -81,7 +81,7 @@ namespace Logic_gate_simulator
             control_settings();
             if (type == Template_type.Input_gate) calculate_real_height();
             else real_height = 30;
-            real_width = 30;
+            real_width = type == Template_type.Input_gate ? 35 : 30;
         }
 
         public void calculate_real_height(List<Connection_point> start_points)

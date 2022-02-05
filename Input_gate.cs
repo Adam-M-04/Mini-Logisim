@@ -22,7 +22,7 @@ namespace Logic_gate_simulator
         {
             for(int i=0; i<Gates_manager.input_gate_points_number; ++i)
             {
-                Connection_point cp = new Connection_point(25, 30 + 20 * i, point_type.Output, this);
+                Connection_point cp = new Connection_point(30, 30 + 20 * i, point_type.Output, this);
                 points.Add(cp);
                 container.Controls.Add(cp.point);
 
@@ -32,7 +32,7 @@ namespace Logic_gate_simulator
                 Label new_label = new Label();
                 new_label.Text = "0";
                 new_label.Height = 20;
-                new_label.Width = 30;
+                new_label.Width = 35;
                 new_label.BackColor = Color.Pink;
                 new_label.TextAlign = ContentAlignment.MiddleCenter;
                 new_label.BorderStyle = BorderStyle.FixedSingle;
@@ -54,7 +54,7 @@ namespace Logic_gate_simulator
             value_label.BorderStyle = BorderStyle.FixedSingle;
             value_label.Left = 0;
             value_label.Top = 0;
-            value_label.Width = 30;
+            value_label.Width = 35;
             value_label.Height = 30;
             draggable.Add_Events(value_label);
 
