@@ -121,8 +121,9 @@ namespace Logic_gate_simulator
         void control_settings()
         {
             template.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
-            template.Top = 25;
-            template.Left = Gates_manager.available_gates.Count * 90 + 10;
+            template.Top = Gates_manager.available_gates.Count > 0 ? Gates_manager.available_gates[0].template.Top : 25;
+            //template.Left = Gates_manager.available_gates.Count * 90 + 10;
+            template.Left = Gates_manager.available_gates.Count > 0 ? Gates_manager.available_gates.Last().template.Right + 10 : 10;
             template.Text = name;
             template.BackColor = Color.FromArgb(233,236,239);
             template.Height = 50;
@@ -145,6 +146,7 @@ namespace Logic_gate_simulator
             if (e.Button == MouseButtons.Left)
             {
                 set_starting_location();
+                Gates_manager.gates_selector.SuspendLayout();
                 template.Cursor = Cursors.Hand;
                 template.Height = real_height;
                 template.Width = real_width;
@@ -152,7 +154,7 @@ namespace Logic_gate_simulator
                 mouseOffset = new Size(e.Location);
 
                 template.Parent = Gates_manager.form;
-
+                
                 template.BringToFront();
                 is_moving = true;
             }
@@ -175,6 +177,7 @@ namespace Logic_gate_simulator
         public void Mouse_up_handler(object sender, MouseEventArgs e)
         {
             if (disabled) return;
+            if (e.Button == MouseButtons.Right) return;
             is_moving = false;
 
             if (template.Location.X < Gates_manager.board.Left || template.Location.X > Gates_manager.board.Width + Gates_manager.board.Left ||
@@ -185,6 +188,7 @@ namespace Logic_gate_simulator
             location.Y = (int)Math.Round(location.Y / 10.0) * 10 - Gates_manager.board.Top;
             Add_gate(location);
             template_to_default();
+            Gates_manager.gates_selector.ResumeLayout();
         }
 
         public void Add_gate(Point location)
