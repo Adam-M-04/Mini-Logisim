@@ -15,6 +15,7 @@ namespace Logic_gate_simulator
         public static Form1 form;
         public static Create_gate gate_creator = new Create_gate();
         public static MenuStrip menu;
+        HelpWindow help_window = new HelpWindow();
 
         public Form1()
         {
@@ -82,6 +83,11 @@ namespace Logic_gate_simulator
                 Gates_manager.current_edited = null;
             }
             Gates_manager.Clear_board();
+        }
+
+        private void helpToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            help_window.ShowDialog();
         }
     }
 }

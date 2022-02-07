@@ -40,6 +40,7 @@ namespace Logic_gate_simulator
             this.clearBoardToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveGateToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.ProjectTitle = new System.Windows.Forms.Label();
+            this.helpToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -68,7 +69,8 @@ namespace Logic_gate_simulator
             this.menuStrip.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.projectToolStripMenuItem,
             this.optionsToolStripMenuItem,
-            this.saveGateToolStripMenuItem});
+            this.saveGateToolStripMenuItem,
+            this.helpToolStripMenuItem});
             this.menuStrip.Location = new System.Drawing.Point(0, 0);
             this.menuStrip.Name = "menuStrip";
             this.menuStrip.Size = new System.Drawing.Size(988, 28);
@@ -143,6 +145,13 @@ namespace Logic_gate_simulator
             this.ProjectTitle.TabIndex = 3;
             this.ProjectTitle.Text = "Title";
             // 
+            // helpToolStripMenuItem
+            // 
+            this.helpToolStripMenuItem.Name = "helpToolStripMenuItem";
+            this.helpToolStripMenuItem.Size = new System.Drawing.Size(55, 24);
+            this.helpToolStripMenuItem.Text = "Help";
+            this.helpToolStripMenuItem.Click += new System.EventHandler(this.helpToolStripMenuItem_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 17F);
@@ -179,6 +188,7 @@ namespace Logic_gate_simulator
         private System.Windows.Forms.ToolStripMenuItem optionsToolStripMenuItem;
         public System.Windows.Forms.ToolStripMenuItem hideNamesToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem clearBoardToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem helpToolStripMenuItem;
     }
 }
 

@@ -144,6 +144,7 @@ namespace Logic_gate_simulator
             if (disabled) return;
             if (e.Button == MouseButtons.Left)
             {
+                set_starting_location();
                 template.Cursor = Cursors.Hand;
                 template.Height = real_height;
                 template.Width = real_width;
