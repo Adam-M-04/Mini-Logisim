@@ -19,6 +19,7 @@ namespace Logic_gate_simulator
         public static void Save()
         {
             values.output_points_number = Gates_manager.input_gate_points_number;
+            values.input_points_number = Gates_manager.output_gate_points_number;
             values.templates_arr = new Gate_template_values[Gates_manager.available_gates.Count - 4];
             for (int i = 4; i < Gates_manager.available_gates.Count; ++i) values.templates_arr[i - 4] = new Gate_template_values(Gates_manager.available_gates[i]);
             values.board_state = new Board_values();
@@ -49,6 +50,7 @@ namespace Logic_gate_simulator
                 }
                 if (values.editing_index == -1) values.board_state.Restore();
                 else Gates_manager.available_gates[values.editing_index].edit_gate();
+
                 Gates_manager.input_gate_points_number = values.output_points_number;
                 foreach (ToolStripMenuItem tsmi in ((ToolStripMenuItem)Gates_manager.available_gates[0].menu_strip.Items[0]).DropDownItems)
                 {
@@ -56,6 +58,14 @@ namespace Logic_gate_simulator
                     else tsmi.Checked = false;
                 }
                 Gates_manager.available_gates[0].calculate_real_height();
+
+                Gates_manager.output_gate_points_number = values.input_points_number;
+                foreach (ToolStripMenuItem tsmi in ((ToolStripMenuItem)Gates_manager.available_gates[1].menu_strip.Items[0]).DropDownItems)
+                {
+                    if (tsmi.Text == Gates_manager.output_gate_points_number.ToString()) tsmi.Checked = true;
+                    else tsmi.Checked = false;
+                }
+                Gates_manager.available_gates[1].calculate_real_height();
             }
             catch(Exception e)
             {
@@ -100,6 +110,7 @@ namespace Logic_gate_simulator
         public Board_values board_state { get; set; }
         public int editing_index { get; set; }
         public byte output_points_number { get; set; }
+        public byte input_points_number { get; set; }
 
         public ValuesToSave() { templates_arr = new Gate_template_values[0]; }
     }
@@ -118,7 +129,22 @@ namespace Logic_gate_simulator
             foreach (Object gate in Gates_manager.gates)
             {
                 if (gate.GetType().Name == "Logical_gate") gates.Add(new Gate_values(Gates_manager.available_gates.IndexOf(((Logical_gate)gate).template), ((Logical_gate)gate).container.Location, gate));
-                if (gate.GetType().Name == "Output_gate") gates.Add(new Gate_values(1, ((Output_gate)gate).container.Location, gate));
+                if (gate.GetType().Name == "Output_gate")
+                {
+                    Output_gate output_gate = (Output_gate)gate;
+                    gates.Add(
+                        new Gate_values(
+                            1,
+                            output_gate.container.Location,
+                            gate,
+                            (byte)output_gate.points.Count,
+                            0,
+                            output_gate.negative_bit,
+                            false,
+                            output_gate.text
+                        )
+                    );
+                }
                 if (gate.GetType().Name == "Input_gate")
                 {
                     Input_gate input_gate = (Input_gate)gate;
@@ -153,10 +179,14 @@ namespace Logic_gate_simulator
                 }
                 if (gate.GetType().Name == "Output_gate")
                 {
-                    if (((Output_gate)gate).point.connection.Count <= 0) continue;
-                    Object starting_gate = ((Output_gate)gate).point.connection[0].p1.parent;
-                    if (starting_gate.GetType().Name == "Input_gate") point_index = ((Input_gate)starting_gate).get_point_index(((Output_gate)gate).point.connection[0].p1);
-                    connections.Add(new Connection(get_index(starting_gate), curr_index, 0, point_index));
+                    foreach(Connection_point cp in ((Output_gate)gate).points)
+                    {
+                        if (cp.connection.Count <= 0) continue;
+                        Object starting_gate = cp.connection[0].p1.parent;
+                        if (starting_gate.GetType().Name == "Input_gate") point_index = ((Input_gate)starting_gate).get_point_index(cp.connection[0].p1);
+                        else point_index = 0;
+                        connections.Add(new Connection(get_index(starting_gate), curr_index, ((Output_gate)gate).points.IndexOf(cp), point_index));
+                    }
                 }
             }
         }
@@ -167,10 +197,23 @@ namespace Logic_gate_simulator
             foreach (Gate_values gate in gates)
             {
                 if (gate.index == 0) Gates_manager.input_gate_points_number = gate.output_points_number;
+                if (gate.index == 1) Gates_manager.output_gate_points_number = gate.output_points_number;
+
                 Gates_manager.available_gates[gate.index].Add_gate(gate.location);
-                if (gate.index == 0) ((Input_gate)Gates_manager.gates.Last()).set_value(gate.value, gate.negative_bit, gate.negative_bit_on);
-                if (gate.index == 0) ((Input_gate)Gates_manager.gates.Last()).set_name(gate.name);
-                if (gate.index == 1) output = (Output_gate)Gates_manager.gates.Last();
+
+                if (gate.index == 0)
+                {
+                    ((Input_gate)Gates_manager.gates.Last()).set_value(gate.value, gate.negative_bit, gate.negative_bit_on);
+                    ((Input_gate)Gates_manager.gates.Last()).set_name(gate.name);
+                }
+
+                if (gate.index == 1)
+                {
+                    ((Output_gate)Gates_manager.gates.Last()).set_name(gate.name);
+                    ((Output_gate)Gates_manager.gates.Last()).set_negative_bit(gate.negative_bit);
+                    output = (Output_gate)Gates_manager.gates.Last();
+                }
+                
             }
             foreach (Connection conn in connections)
             {
@@ -191,7 +234,7 @@ namespace Logic_gate_simulator
             }
             if (gate.GetType().Name == "Output_gate")
             {
-                return ((Output_gate)gate).point;
+                return ((Output_gate)gate).points[index];
             }
             if (gate.GetType().Name == "Input_gate")
             {

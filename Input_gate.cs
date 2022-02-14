@@ -67,13 +67,13 @@ namespace Logic_gate_simulator
             name_label.Left = 0;
             name_label.Width = 40;
             name_label.Height = 30;
-            //draggable.Add_Events(value_label);
+            name_label.Font = new Font("Arial", 7);
 
             // Container styles
-            container.Height = Gates_manager.input_gate_points_number * 20 + 50;
+            container.Height = Gates_manager.input_gate_points_number * 20 + 55;
             container.Width = labels[0].Width + 5;
 
-            name_label.Top = container.Height - 30;
+            name_label.Top = container.Height - 25;
 
             value_label.MouseMove += new MouseEventHandler(update_lines);
             value_label.MouseUp += new MouseEventHandler(update_lines);

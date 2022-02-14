@@ -29,10 +29,12 @@ namespace Logic_gate_simulator
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Starting_window));
             this.label1 = new System.Windows.Forms.Label();
             this.Create_button = new System.Windows.Forms.Button();
             this.Open_button = new System.Windows.Forms.Button();
             this.Project_textbox = new System.Windows.Forms.TextBox();
+            this.label2 = new System.Windows.Forms.Label();
             this.SuspendLayout();
             // 
             // label1
@@ -73,11 +75,21 @@ namespace Logic_gate_simulator
             // 
             this.Project_textbox.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.Project_textbox.Font = new System.Drawing.Font("Microsoft Sans Serif", 16F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
-            this.Project_textbox.Location = new System.Drawing.Point(12, 122);
+            this.Project_textbox.Location = new System.Drawing.Point(12, 128);
             this.Project_textbox.MaxLength = 50;
             this.Project_textbox.Name = "Project_textbox";
-            this.Project_textbox.Size = new System.Drawing.Size(509, 38);
+            this.Project_textbox.Size = new System.Drawing.Size(510, 38);
             this.Project_textbox.TabIndex = 3;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Font = new System.Drawing.Font("Microsoft Sans Serif", 14F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
+            this.label2.Location = new System.Drawing.Point(22, 96);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(478, 29);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "Enter name for new project or open existing";
             // 
             // Starting_window
             // 
@@ -85,11 +97,13 @@ namespace Logic_gate_simulator
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(173)))), ((int)(((byte)(181)))), ((int)(((byte)(189)))));
             this.ClientSize = new System.Drawing.Size(533, 259);
+            this.Controls.Add(this.label2);
             this.Controls.Add(this.Project_textbox);
             this.Controls.Add(this.Open_button);
             this.Controls.Add(this.Create_button);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedSingle;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Starting_window";
             this.Text = "Logic Gate Simulator";
@@ -105,5 +119,6 @@ namespace Logic_gate_simulator
         private System.Windows.Forms.Button Create_button;
         private System.Windows.Forms.Button Open_button;
         private System.Windows.Forms.TextBox Project_textbox;
+        private System.Windows.Forms.Label label2;
     }
 }

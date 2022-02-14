@@ -34,7 +34,7 @@ namespace Logic_gate_simulator
         {
             if (Gate_name_textbox.Text.Length == 0)
             {
-                MessageBox.Show("Enter a name for gate");
+                MessageBox.Show("Enter name for the gate");
                 return;
             }
             Close();

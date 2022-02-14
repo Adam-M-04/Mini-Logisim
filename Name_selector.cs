@@ -13,6 +13,7 @@ namespace Logic_gate_simulator
     public partial class Name_selector : Form
     {
         Input_gate caller = null;
+        Output_gate caller_output = null;
         public Name_selector()
         {
             InitializeComponent();
@@ -25,10 +26,20 @@ namespace Logic_gate_simulator
             ShowDialog();
         }
 
+        public void Open(Output_gate caller)
+        {
+            this.caller_output = caller;
+            textBox_Name.Text = caller.text;
+            ShowDialog();
+        }
+
         private void button1_Click(object sender, EventArgs e)
         {
-            caller.set_name(textBox_Name.Text);
+            if (caller != null) caller.set_name(textBox_Name.Text);
+            else caller_output.set_name(textBox_Name.Text);
             textBox_Name.Text = "";
+            caller = null;
+            caller_output = null;
             Close();
         }
     }

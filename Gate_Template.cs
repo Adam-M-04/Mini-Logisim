@@ -57,31 +57,28 @@ namespace Logic_gate_simulator
             this.type = type;
             set_style(type == Template_type.Input_gate ? "Input" : "Output");
 
-            if(type == Template_type.Input_gate)
+            menu_strip.ShowImageMargin = false;
+            ToolStripMenuItem item = new ToolStripMenuItem("Output points");
+            for(int i=0; i<4; ++i)
             {
-                menu_strip.ShowImageMargin = false;
-                ToolStripMenuItem item = new ToolStripMenuItem("Output points");
-                for(int i=0; i<4; ++i)
+                ToolStripMenuItem subitem = new ToolStripMenuItem(Math.Pow(2,i).ToString());
+                item.DropDownItems.Add(subitem);
+                item.DropDownItems[i].Click += new EventHandler((s, e)=> 
                 {
-                    ToolStripMenuItem subitem = new ToolStripMenuItem(Math.Pow(2,i).ToString());
-                    item.DropDownItems.Add(subitem);
-                    item.DropDownItems[i].Click += new EventHandler((s, e)=> 
-                    {
-                        foreach (ToolStripMenuItem tsmi in item.DropDownItems) tsmi.Checked = false;
-                        ((ToolStripMenuItem)s).Checked = true;
-                        Gates_manager.input_gate_points_number = Convert.ToByte(((ToolStripMenuItem)s).Text);
-                        calculate_real_height();
-                    });
-                }
-                ((ToolStripMenuItem)item.DropDownItems[0]).Checked = true;
-                menu_strip.Items.Add(item);
+                    foreach (ToolStripMenuItem tsmi in item.DropDownItems) tsmi.Checked = false;
+                    ((ToolStripMenuItem)s).Checked = true;
+                    if(type == Template_type.Input_gate) Gates_manager.input_gate_points_number = Convert.ToByte(((ToolStripMenuItem)s).Text);
+                    if (type == Template_type.Output_gate) Gates_manager.output_gate_points_number = Convert.ToByte(((ToolStripMenuItem)s).Text);
+                    calculate_real_height();
+                });
             }
+            ((ToolStripMenuItem)item.DropDownItems[0]).Checked = true;
+            menu_strip.Items.Add(item);
             template.ContextMenuStrip = menu_strip;
 
             control_settings();
-            if (type == Template_type.Input_gate) calculate_real_height();
-            else real_height = 30;
-            real_width = type == Template_type.Input_gate ? 35 : 30;
+            calculate_real_height();
+            real_width = 35;
         }
 
         public void calculate_real_height(List<Connection_point> start_points)
@@ -97,7 +94,7 @@ namespace Logic_gate_simulator
         }
         public void calculate_real_height()
         {
-            real_height = Gates_manager.input_gate_points_number * 20 + 10;
+            real_height = (type == Template_type.Input_gate ? Gates_manager.input_gate_points_number : Gates_manager.output_gate_points_number) * 20 + 55;
         }
 
         public void set_style(string name, Color color)
@@ -122,7 +119,6 @@ namespace Logic_gate_simulator
         {
             template.Anchor = (AnchorStyles.Bottom | AnchorStyles.Left);
             template.Top = Gates_manager.available_gates.Count > 0 ? Gates_manager.available_gates[0].template.Top : 25;
-            //template.Left = Gates_manager.available_gates.Count * 90 + 10;
             template.Left = Gates_manager.available_gates.Count > 0 ? Gates_manager.available_gates.Last().template.Right + 10 : 10;
             template.Text = name;
             template.BackColor = Color.FromArgb(233,236,239);
@@ -181,7 +177,12 @@ namespace Logic_gate_simulator
             is_moving = false;
 
             if (template.Location.X < Gates_manager.board.Left || template.Location.X > Gates_manager.board.Width + Gates_manager.board.Left ||
-                template.Location.Y < Gates_manager.board.Top || template.Location.Y > Gates_manager.board.Height + Gates_manager.board.Top) { template_to_default(); return; }
+                template.Location.Y < Gates_manager.board.Top || template.Location.Y > Gates_manager.board.Height + Gates_manager.board.Top)
+            { 
+                template_to_default();
+                Gates_manager.gates_selector.ResumeLayout();
+                return; 
+            }
 
             Point location = template.Location;
             location.X = (int)Math.Round(location.X / 10.0) * 10 - Gates_manager.board.Left;

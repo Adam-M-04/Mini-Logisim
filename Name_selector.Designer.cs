@@ -29,6 +29,7 @@ namespace Logic_gate_simulator
         /// </summary>
         private void InitializeComponent()
         {
+            System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(Name_selector));
             this.label1 = new System.Windows.Forms.Label();
             this.textBox_Name = new System.Windows.Forms.TextBox();
             this.button_confirm = new System.Windows.Forms.Button();
@@ -49,7 +50,7 @@ namespace Logic_gate_simulator
             this.textBox_Name.BackColor = System.Drawing.Color.FromArgb(((int)(((byte)(248)))), ((int)(((byte)(249)))), ((int)(((byte)(250)))));
             this.textBox_Name.Font = new System.Drawing.Font("Microsoft Tai Le", 20F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(238)));
             this.textBox_Name.Location = new System.Drawing.Point(8, 69);
-            this.textBox_Name.MaxLength = 5;
+            this.textBox_Name.MaxLength = 12;
             this.textBox_Name.Name = "textBox_Name";
             this.textBox_Name.Size = new System.Drawing.Size(258, 50);
             this.textBox_Name.TabIndex = 1;
@@ -76,6 +77,7 @@ namespace Logic_gate_simulator
             this.Controls.Add(this.textBox_Name);
             this.Controls.Add(this.label1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedToolWindow;
+            this.Icon = ((System.Drawing.Icon)(resources.GetObject("$this.Icon")));
             this.MaximizeBox = false;
             this.Name = "Name_selector";
             this.Text = "Name_selector";

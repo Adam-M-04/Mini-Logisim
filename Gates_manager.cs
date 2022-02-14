@@ -15,7 +15,7 @@ namespace Logic_gate_simulator
         public static Form1 form;
         public static Panel board, gates_selector;
         public static Gate_Template current_edited = null;
-        public static byte input_gate_points_number = 1;
+        public static byte input_gate_points_number = 1, output_gate_points_number = 1;
 
         public static void Add_gate_template(string name, int inputs_number, Func<bool[], bool> calc_function)
         {
@@ -47,7 +47,7 @@ namespace Logic_gate_simulator
             foreach (Gate_Template gt in available_gates) if(gt.menu_strip.Items.Count > 0) gt.menu_strip.Items[0].Enabled = val;
             Form1.menu.Items[2].Visible = !val;
             ((Output_gate)current_edited.output_point.parent).menu_strip.Items[0].Enabled = val;
-            ((Output_gate)current_edited.output_point.parent).menu_strip.Items[1].Enabled = val;
+            ((Output_gate)current_edited.output_point.parent).menu_strip.Items[2].Enabled = val;
         }
 
         public static void Gates_Enabled(bool val, Gate_Template starting_gate = null)

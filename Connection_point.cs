@@ -123,7 +123,7 @@ namespace Logic_gate_simulator
             else
             {
                 if (parent.GetType().Name == "Logical_gate") ((Logical_gate)parent).update_value();
-                if (parent.GetType().Name == "Output_gate") ((Output_gate)parent).update_value(value);
+                if (parent.GetType().Name == "Output_gate") ((Output_gate)parent).update_value(value, this);
             }
         }
 
